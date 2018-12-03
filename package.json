@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/flevenson/BuildYourOwnBackend#readme",
   "dependencies": {
+    "express": "^4.16.4",
     "nightmare": "^3.0.1"
   }
 }
