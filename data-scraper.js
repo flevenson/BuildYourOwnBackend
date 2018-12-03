@@ -13,7 +13,7 @@ nightmare
   })
   .end()
   .then(function(result) {
-    fs.writeFileSync(".db/data/beer-names.js", JSON.stringify(result));
+    fs.writeFileSync("./db/scraped-data/beer-names.js", JSON.stringify(result));
     console.log(result);
   })
   .catch(error => console.error(error));
