@@ -5,7 +5,7 @@ var fs = require("fs");
 nightmare
   .goto("http://cerebralbrewing.com/beer/")
   .evaluate(function() {
-    let titles = document.querySelectorAll("h3");
+    let titles = document.querySelectorAll("span");
     var list = [].slice.call(titles);
     return list.map(function(node) {
       return node.innerText;
@@ -13,7 +13,7 @@ nightmare
   })
   .end()
   .then(function(result) {
-    fs.writeFileSync("./db/scraped-data/beer-names.js", JSON.stringify(result));
+    fs.writeFileSync("./db/scraped-data/beer-styles.js", JSON.stringify(result));
     console.log(result);
   })
-  .catch(error => console.error(error));
+  .catch(error => console.error("Scrape Failed", error));
