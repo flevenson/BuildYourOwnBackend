@@ -4,8 +4,6 @@ const beerDescriptions = require("../db/scraped-data/beer-descriptions")
 const beerAvailability = require("../db/scraped-data/beer-availability")
 const beerStyles = require("../db/scraped-data/beer-styles")
 
-console.log(beerNames)
-
 const cleanBeers = beerNames.map((name, index) => {
   return {
     name,
@@ -16,9 +14,18 @@ const cleanBeers = beerNames.map((name, index) => {
   }
 })
 
-module.exports = cleanBeers
+const cleanStyles = cleanBeers.reduce((acc, beer) => {
+  let beerStyles = acc.map(obj => obj.style)
+  if(!beerStyles.includes(beer.beerStyle)){
+    acc.push({
+      style: beer.beerStyle,
+      description: ''
+    })
+  }
+  return acc
+}, [])
 
-function test() {
-  console.log(beerNames);
-}
-test();
+const beerData = [cleanBeers, cleanStyles]
+
+module.exports = beerData
+
