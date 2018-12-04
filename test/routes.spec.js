@@ -14,6 +14,7 @@ describe('Server file', () => {
           done()
         })
     })
+
     it('should return the data as JSON', (done) => {
       chai.request(app)
         .get('/api/v1/cerebral_beers/styles')
@@ -22,6 +23,16 @@ describe('Server file', () => {
           done()
         })
     })
+
+    it('should return an array with all of the beer styles', (done) => {
+      chai.request(app)
+        .get('/api/v1/cerebral_beers/styles')
+        .end((error, response) => {
+          expect(response.body).to.be.a('array')
+          expect(response.body.length).to.equal(43)
+          done()
+        })
+    }) 
   })
 
 })
