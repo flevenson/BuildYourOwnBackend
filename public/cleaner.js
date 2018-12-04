@@ -15,10 +15,10 @@ const cleanBeers = beerNames.map((name, index) => {
 })
 
 const cleanStyles = cleanBeers.reduce((acc, beer) => {
-  let beerStyles = acc.map(obj => obj.style)
+  let beerStyles = acc.map(obj => obj.beerStyle)
   if(!beerStyles.includes(beer.beerStyle)){
     acc.push({
-      style: beer.beerStyle,
+      beerStyle: beer.beerStyle,
       description: ''
     })
   }

@@ -13,7 +13,7 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 app.set("port", process.env.PORT || 3000);
 
-console.log(beerData[1].length)
+console.log(beerData[1])
 
 app.listen(app.get("port"), () => {
   console.log(`Cerebral Beer is running on ${app.get("port")}.`);
