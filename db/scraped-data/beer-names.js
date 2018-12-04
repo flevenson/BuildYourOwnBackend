@@ -1,4 +1,4 @@
-export const beerNames = [
+module.exports = [
   "TREMBLING GIANT",
   "GUAVA-ING THROUGH DIMENSIONS",
   "TULPAMANCER",

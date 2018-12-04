@@ -1,4 +1,4 @@
-export const beerDescriptions = [
+module.exports = [
   "Brewed with wheat and Vienna and fermented with a clean Belgian strain. Aged 12 months in oak with Brettanomyces Brux.",
   "100% Brettanomyces fermented Saison conditioned in stainless for 3 months. We then added guava puree and bottle conditioned it for 6 months.",
   "Oat Saison brewed with 70% oats consisting of three different varieties. Hopped in the whirlpool with Callista then ripened in oak for 10 months.",

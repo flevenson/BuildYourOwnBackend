@@ -23,5 +23,8 @@
     "knex": "^0.15.2",
     "nightmare": "^3.0.1",
     "pg": "^7.7.1"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.2.0"
   }
 }
