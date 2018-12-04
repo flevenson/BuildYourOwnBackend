@@ -13,8 +13,15 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 app.set("port", process.env.PORT || 3000);
 
-console.log(beerData[1])
+app.get('/api/v1/cerebral_beers', (request, response) => {
+  database('beer_styles').select()
+    .then(styles => {
+      response.status(200).json(styles)
+    })
+})
 
 app.listen(app.get("port"), () => {
   console.log(`Cerebral Beer is running on ${app.get("port")}.`);
 });
+
+module.exports = app;
