@@ -11,16 +11,21 @@ const createStyles = (knex, style) => {
     .insert({
       style_name: style.beerStyle,
       description: style.description
-    }, 'id')
-    .then(styleID => {
+    }, ['style_name', 'id'])
+    .then(style => {
+      console.log(style)
       let beerPromises = beers.map(beer => {
-        return knex('beers').insert({
-          abv: beer.abv,
-          description: beer.description,
-          is_available: availability,
-          style_id: styleID[0]
-        })
+        if(beer.beerStyle === style[0].style_name){
+          return knex('beers').insert({
+            name: beer.name,
+            abv: beer.abv,
+            description: beer.description,
+            is_available: beer.availability,
+            style_id: style[0].id
+          })
+        }
       })
+      return Promise.all(beerPromises)
     })
 }
 
