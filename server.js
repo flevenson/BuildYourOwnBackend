@@ -9,7 +9,10 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 app.set("port", process.env.PORT || 3000);
 
-
+function test() {
+  console.log("beerNames");
+}
+test();
 
 app.listen(app.get("port"), () => {
   console.log(`Palette Picker is running on ${app.get("port")}.`);
