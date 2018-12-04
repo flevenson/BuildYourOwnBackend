@@ -32,7 +32,27 @@ describe('Server file', () => {
           expect(response.body.length).to.equal(43)
           done()
         })
-    }) 
+    })
+
+    it('should correctly add a new style', (done) => {
+      const newStyle = {
+        style_name: 'freddies secret style',
+        description: 'omg so amazing wow'
+      }
+
+      chai.request(app)
+        .post('api/v1/cerebral_beers/styles')
+        .send(newStyle)
+        .end((error, response) => {
+          expect(response).to.have.status(201)
+          expect(response.res.text).to.equal('Beer Style successfully added!')
+          done()
+        })
+    })
+
+
   })
+
+  // describe('/api/v1/cerebral_beers/styles')
 
 })
