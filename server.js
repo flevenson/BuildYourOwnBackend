@@ -13,7 +13,7 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 app.set("port", process.env.PORT || 3000);
 
-app.get('/api/v1/cerebral_beers', (request, response) => {
+app.get('/api/v1/cerebral_beers/styles', (request, response) => {
   database('beer_styles').select()
     .then(styles => {
       response.status(200).json(styles)
