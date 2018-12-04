@@ -1,4 +1,4 @@
-export const beerAvailability = [
+module.exports = [
   true,
   true,
   true,

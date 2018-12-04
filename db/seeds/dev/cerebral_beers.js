@@ -1,3 +1,5 @@
+
+
 exports.seed = function(knex, Promise) {
   return knex("table_name")
     .del()

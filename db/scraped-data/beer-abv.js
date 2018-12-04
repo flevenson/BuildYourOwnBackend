@@ -1,4 +1,4 @@
-export const beerAbv = [
+module.exports = [
   "6.9% ABV",
   "6.7% ABV",
   "6.8% ABV",

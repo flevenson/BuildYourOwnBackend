@@ -1,4 +1,4 @@
-export const beerStyles = [
+module.exports = [
   "Barrel Aged Biere de Garde",
   "Brettanomyces Saison",
   "Barrel-Aged Saison",
