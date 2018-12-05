@@ -51,6 +51,13 @@ app.get("/api/v1/cerebral_beers/beer", (request, response) => {
 app.get("/api/v1/cerebral_beers/find_by_style", (request, response) => {
   let { style_name } = request.query;
 
+  if (!style_name) {
+    return response.status(422).send({
+      error:
+        "Request must include 'style_name'. All first letter must be capitalized and spaces replaced by pluses. Example: '/api/v1/cerebral_beers/find_by_style?style_name=India+Pale+Ale'"
+    });
+  }
+
   database("beer_styles")
     .where("style_name", style_name)
     .select()

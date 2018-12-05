@@ -141,12 +141,29 @@ describe("Server file", () => {
         .end((error, response) => {
           expect(response.body).to.be.a("array");
           expect(response.body.length).to.equal(2);
-          expect(response.body[0].name).to.equal('Guava-ing Through Dimensions');
-          expect(response.body[0].description).to.equal('a very good beer');
-          expect(response.body[0].abv).to.equal('6.7%');
-          expect(response.body[1].name).to.equal('Tangerine-ing Through Dimensions');
-          expect(response.body[1].description).to.equal('an ok beer');
-          expect(response.body[1].abv).to.equal('6.7%');
+          expect(response.body[0].name).to.equal(
+            "Guava-ing Through Dimensions"
+          );
+          expect(response.body[0].description).to.equal("a very good beer");
+          expect(response.body[0].abv).to.equal("6.7%");
+          expect(response.body[1].name).to.equal(
+            "Tangerine-ing Through Dimensions"
+          );
+          expect(response.body[1].description).to.equal("an ok beer");
+          expect(response.body[1].abv).to.equal("6.7%");
+          done();
+        });
+    });
+    it("expect error message if request does no include style_name", done => {
+      chai
+        .request(app)
+        .get(
+          "/api/v1/cerebral_beers/find_by_style?style_NOname=Brettanomyces+Saison"
+        )
+        .end((error, response) => {
+          expect(response.body.error).to.equal(
+            "Request must include 'style_name'. All first letter must be capitalized and spaces replaced by pluses. Example: '/api/v1/cerebral_beers/find_by_style?style_name=India+Pale+Ale'"
+          );
           done();
         });
     });
