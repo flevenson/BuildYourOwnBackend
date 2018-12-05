@@ -48,15 +48,19 @@ app.get("/api/v1/cerebral_beers/beer", (request, response) => {
     });
 });
 
-app.get("/api/v1/cerebral_beers/:style_id/beers", (request, response) => {
-  const { id } = request.params;
-  console.log(request.params)
+app.get("/api/v1/cerebral_beers/find_by_style", (request, response) => {
+  let { style_name } = request.query;
 
-  // database("papers")
-  //   .where("id", id)
-  //   .select()
-  //   .then(paper => response.status(200).json(paper))
-  //   .catch(error => console.log(`Error fetching paper: ${error.message}`));
+  database("beer_styles")
+    .where("style_name", style_name)
+    .select()
+    .then(style =>
+      database("beers")
+        .where("style_id", style[0].id)
+        .select()
+    )
+    .then(beers => response.status(200).json(beers))
+    .catch(error => console.log(`Error fetching style: ${error.message}`));
 });
 
 app.listen(app.get("port"), () => {

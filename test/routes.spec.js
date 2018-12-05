@@ -107,12 +107,13 @@ describe("Server file", () => {
     });
   });
 
-  describe("/api/v1/cerebral_beers/:style_id/beers", () => {
-    it.skip("should have a 200 status", done => {
+  describe("/api/v1/cerebral_beers/styles/:style_name", () => {
+    it("should have a 200 status", done => {
       chai
         .request(app)
-        .get("/api/v1/cerebral_beers/:style_id/beers")
+        .get("/api/v1/cerebral_beers/find_by_style?style_name=Brettanomyces+Saison")
         .end((error, response) => {
+          console.log(response.body)
           expect(response).to.have.status(200);
           done();
         });
