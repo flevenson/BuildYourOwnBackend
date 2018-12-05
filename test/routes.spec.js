@@ -73,6 +73,15 @@ describe('Server file', () => {
           })
       })
 
+      it('should return an array with all of the beer', (done) => {
+        chai.request(app)
+          .get('/api/v1/cerebral_beers/beer')
+          .end((error, response) => {
+            expect(response.body).to.be.a('array')
+            expect(response.body.length).to.equal(98)
+            done()
+          })
+      })
 
   })
 
