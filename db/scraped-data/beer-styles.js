@@ -97,4 +97,4 @@ module.exports = [
   "Imperial Breakfast Porter",
   "Bourbon Barrel Aged Breakfast Porter",
   "Bourbon Barrel Aged Breakfast Porter"
-];  
+];

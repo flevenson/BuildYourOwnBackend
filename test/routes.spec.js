@@ -8,7 +8,6 @@ const database = require("knex")(config);
 chai.use(chaiHttp);
 
 describe("Server file", () => {
-
   beforeEach(done => {
     database.seed.run().then(() => {
       done();
