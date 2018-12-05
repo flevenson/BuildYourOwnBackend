@@ -48,6 +48,53 @@ app.get("/api/v1/cerebral_beers/beer", (request, response) => {
     });
 });
 
+app.post("/api/v1/cerebral_beers/beer", (request, response) => {
+  const newBeer = request.body;
+
+  let missingProperties = [];
+  for (let requiredProperty of [
+    "name",
+    "description",
+    "abv",
+    "is_available",
+    "style"
+  ]) {
+    if (!newBeer[requiredProperty]) {
+      missingProperties = [...missingProperties, requiredProperty];
+      return response
+        .status(422)
+        .send({ error: `Missing Properties ${missingProperties}` });
+    }
+  }
+  database("beer_styles")
+    .where("style_name", newBeer.style)
+    .select()
+    .then(style => {
+      database("beers")
+        .insert(
+          {
+            name: newBeer.name,
+            description: newBeer.description,
+            is_available: newBeer.is_available,
+            abv: newBeer.abv,
+            style_id: style[0].id
+          },
+          "id"
+        )
+        .then(project => {
+          response.status(201).json("Beer successfully added!");
+        })
+        .catch(error => {
+          response.status(500).json({ error: error.message });
+        });
+    })
+    .catch(error => {
+      response.status(500).json({
+        error: "That style does not exist. Try adding style to database first"
+      });
+    });
+});
+
 app.get("/api/v1/cerebral_beers/find_by_style", (request, response) => {
   let { style_name } = request.query;
 
