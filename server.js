@@ -36,9 +36,13 @@ app.post('/api/v1/cerebral_beers/styles', (request, response) => {
     .catch(error => {
       response.status(500).json({ error: error.message})
     })
+})
 
-  
-
+app.get('/api/v1/cerebral_beers/beer', (request, response) => {
+  database('beers').select()
+    .then(beers => {
+      response.status(200).json(beers)
+    })
 })
 
 app.listen(app.get("port"), () => {
