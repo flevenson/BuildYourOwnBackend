@@ -107,14 +107,46 @@ describe("Server file", () => {
     });
   });
 
-  describe("/api/v1/cerebral_beers/styles/:style_name", () => {
+  describe("/api/v1/cerebral_beers/find_by_style", () => {
     it("should have a 200 status", done => {
       chai
         .request(app)
-        .get("/api/v1/cerebral_beers/find_by_style?style_name=Brettanomyces+Saison")
+        .get(
+          "/api/v1/cerebral_beers/find_by_style?style_name=Brettanomyces+Saison"
+        )
         .end((error, response) => {
-          console.log(response.body)
           expect(response).to.have.status(200);
+          done();
+        });
+    });
+
+    it("should return the data as JSON", done => {
+      chai
+        .request(app)
+        .get(
+          "/api/v1/cerebral_beers/find_by_style?style_name=Brettanomyces+Saison"
+        )
+        .end((error, response) => {
+          expect(response).to.be.json;
+          done();
+        });
+    });
+
+    it("should return an array with all beers of a certain style", done => {
+      chai
+        .request(app)
+        .get(
+          "/api/v1/cerebral_beers/find_by_style?style_name=Brettanomyces+Saison"
+        )
+        .end((error, response) => {
+          expect(response.body).to.be.a("array");
+          expect(response.body.length).to.equal(2);
+          expect(response.body[0].name).to.equal('Guava-ing Through Dimensions');
+          expect(response.body[0].description).to.equal('a very good beer');
+          expect(response.body[0].abv).to.equal('6.7%');
+          expect(response.body[1].name).to.equal('Tangerine-ing Through Dimensions');
+          expect(response.body[1].description).to.equal('an ok beer');
+          expect(response.body[1].abv).to.equal('6.7%');
           done();
         });
     });
