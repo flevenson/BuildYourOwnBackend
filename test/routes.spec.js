@@ -5,6 +5,30 @@ const expect = chai.expect
 chai.use(chaiHttp)
 
 describe('Server file', () => {
+
+  beforeEach(done => {
+    knex.migrate.rollback()
+    .then(() => {
+      knex.migrate.latest()
+    })
+    .then(() => {
+      return knex.seed.run()
+    })
+    .then(() => {
+      done()
+    })
+  })
+
+  afterEach(done => {
+    knex.migrate.rollback()
+    .then(() => {
+      return knex.seed.run()
+    })
+    .then(() => {
+      done()
+    })
+  })
+
   describe('/api/v1/cerebral_beers/styles', () => {
     it('should have a 200 status', (done) => {
       chai.request(app)
