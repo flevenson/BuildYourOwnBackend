@@ -61,11 +61,16 @@ app.get("/api/v1/cerebral_beers/find_by_style", (request, response) => {
   database("beer_styles")
     .where("style_name", style_name)
     .select()
-    .then(style =>
+    .then(style => {
+      if (!style.length) {
+        return response.status(422).send({
+          error: `No beers found of style: ${style_name}`
+        });
+      }
       database("beers")
         .where("style_id", style[0].id)
-        .select()
-    )
+        .select();
+    })
     .then(beers => response.status(200).json(beers))
     .catch(error => console.log(`Error fetching style: ${error.message}`));
 });
