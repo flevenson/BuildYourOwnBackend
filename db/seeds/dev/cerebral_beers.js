@@ -1,9 +1,6 @@
 const beerData = require('../../../public/cleaner.js');
 const beers = beerData[0];
 const styles = beerData[1];
-// const environment = process.env.NODE_ENV || 'development';
-// const config = require('../../../knexfile')[environment]
-// const database = require('knex')(config);
 
 const createStyles = (knex, style) => {
 
@@ -28,12 +25,6 @@ const createStyles = (knex, style) => {
       return Promise.all(beerPromises)
     })
 }
-
-// const createBeer = (knex, beer) => {
-//   console.log(database('beer_styles').select('id'))
-//   // return knex('beers')
-//   //   .insert()
-// }
 
 exports.seed = function(knex, Promise) {
   return knex("beers")

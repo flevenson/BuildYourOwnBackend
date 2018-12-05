@@ -41,11 +41,11 @@ describe('Server file', () => {
       }
 
       chai.request(app)
-        .post('api/v1/cerebral_beers/styles')
+        .post('/api/v1/cerebral_beers/styles')
         .send(newStyle)
         .end((error, response) => {
           expect(response).to.have.status(201)
-          expect(response.res.text).to.equal('Beer Style successfully added!')
+          expect(response.body).to.equal('Beer Style successfully added!')
           done()
         })
     })
