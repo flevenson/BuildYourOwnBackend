@@ -72,7 +72,7 @@ app.get("/api/v1/cerebral_beers/find_by_style", (request, response) => {
         .select();
     })
     .then(beers => response.status(200).json(beers))
-    .catch(error => console.log(`Error fetching style: ${error.message}`));
+    .catch(error => console.log(`Error fetching style: ${style_name}`));
 });
 
 app.get("/api/v1/cerebral_beers/currently_available", (request, response) => {

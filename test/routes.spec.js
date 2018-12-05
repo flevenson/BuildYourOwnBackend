@@ -172,15 +172,46 @@ describe("Server file", () => {
     it("expect error message if style does not exist in db", done => {
       chai
         .request(app)
-        .get(
-          "/api/v1/cerebral_beers/find_by_style?style_name=mystery+style"
-        )
+        .get("/api/v1/cerebral_beers/find_by_style?style_name=mystery+style")
         .end((error, response) => {
           expect(response.body.error).to.equal(
-          'No beers found of style: mystery style'
-            );
+            "No beers found of style: mystery style"
+          );
           done();
         });
+    });
+    
+    describe("/api/v1/cerebral_beers/currently_available", () => {
+      it("should have a 200 status", done => {
+        chai
+          .request(app)
+          .get("/api/v1/cerebral_beers/currently_available")
+          .end((error, response) => {
+            expect(response).to.have.status(200);
+            done();
+          });
+      });
+
+      it("should return the data as JSON", done => {
+        chai
+          .request(app)
+          .get("/api/v1/cerebral_beers/currently_available")
+          .end((error, response) => {
+            expect(response).to.be.json;
+            done();
+          });
+      });
+
+      it("should return an array with all of the beer currently available", done => {
+        chai
+          .request(app)
+          .get("/api/v1/cerebral_beers/currently_available")
+          .end((error, response) => {
+            expect(response.body).to.be.a("array");
+            expect(response.body.length).to.equal(2);
+            done();
+          });
+      });
     });
   });
 });
