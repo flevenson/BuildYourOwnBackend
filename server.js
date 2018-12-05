@@ -48,6 +48,17 @@ app.get("/api/v1/cerebral_beers/beer", (request, response) => {
     });
 });
 
+app.get("/api/v1/cerebral_beers/:style_id/beers", (request, response) => {
+  const { id } = request.params;
+  console.log(request.params)
+
+  // database("papers")
+  //   .where("id", id)
+  //   .select()
+  //   .then(paper => response.status(200).json(paper))
+  //   .catch(error => console.log(`Error fetching paper: ${error.message}`));
+});
+
 app.listen(app.get("port"), () => {
   console.log(`Cerebral Beer is running on ${app.get("port")}.`);
 });

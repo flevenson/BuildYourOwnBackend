@@ -14,6 +14,16 @@ describe("Server file", () => {
     });
   });
 
+  it("should return a 404 for a route that does not exist", done => {
+    chai
+      .request(app)
+      .get("/supersad")
+      .end((error, response) => {
+        expect(response).to.have.status(404);
+        done();
+      });
+  });
+
   describe("/api/v1/cerebral_beers/styles", () => {
     it("should have a 200 status", done => {
       chai
@@ -98,7 +108,7 @@ describe("Server file", () => {
   });
 
   describe("/api/v1/cerebral_beers/:style_id/beers", () => {
-    it("should have a 200 status", done => {
+    it.skip("should have a 200 status", done => {
       chai
         .request(app)
         .get("/api/v1/cerebral_beers/:style_id/beers")
