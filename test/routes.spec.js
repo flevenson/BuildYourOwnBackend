@@ -1,29 +1,30 @@
+process.env.NODE_ENV = 'test'
+
 const chai = require('chai')
 const chaiHttp = require('chai-http')
 const app = require ('../server.js')
 const expect = chai.expect
 chai.use(chaiHttp)
+const config = require('../knexfile')['test']
+const database = require('knex')(config)
 
 describe('Server file', () => {
 
-  beforeEach(done => {
-    knex.migrate.rollback()
+  before(done => {
+    database.migrate.rollback()
     .then(() => {
-      knex.migrate.latest()
+      database.migrate.latest()
     })
     .then(() => {
-      return knex.seed.run()
+      database.seed.run()
     })
     .then(() => {
       done()
     })
   })
 
-  afterEach(done => {
-    knex.migrate.rollback()
-    .then(() => {
-      return knex.seed.run()
-    })
+  beforeEach(done => {
+    database.seed.run()
     .then(() => {
       done()
     })

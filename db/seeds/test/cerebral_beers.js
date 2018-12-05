@@ -10,7 +10,6 @@ const createStyles = (knex, style) => {
       description: style.description
     }, ['style_name', 'id'])
     .then(style => {
-      console.log(style)
       let beerPromises = beers.map(beer => {
         if(beer.beerStyle === style[0].style_name){
           return knex('beers').insert({
