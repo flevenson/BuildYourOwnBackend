@@ -1,6 +1,14 @@
 const beerData = require("../../../public/cleaner.js");
-const beers = beerData[0];
-const styles = beerData[1];
+const beers = [
+{name: 'Trembling Giant', abv: '6.9%', description: 'a good beer', availability: true, beerStyle: "Barrel Aged Biere de Garde"},
+{name: 'Guava-ing Through Dimensions', abv: '6.7%', description: 'a very good beer', availability: true, beerStyle: "Brettanomyces Saison"},
+{name: 'Tangerine-ing Through Dimensions', abv: '6.7%', description: 'an ok beer', availability: false, beerStyle: "Brettanomyces Saison"},
+];
+
+const styles = [
+{beerStyle: 'Barrel Aged Biere de Garde', description: "Barrel aged Dark style meant for cellaring"},
+{beerStyle: 'Brettanomyces Saison', description: "Spicy saison with wild yeast"}
+];
 
 const createStyles = (knex, style) => {
   return knex("beer_styles")
