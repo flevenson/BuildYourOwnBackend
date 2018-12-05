@@ -36,7 +36,6 @@ exports.seed = function(knex, Promise) {
       })
     return Promise.all(stylePromises)
     })
-    // .then(createBeer)
     .then(() => console.log('Great Success!!'))
     .catch(error => console.log(`Error seeding data: ${error}`))
 };

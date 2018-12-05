@@ -53,6 +53,15 @@ describe('Server file', () => {
 
   })
 
-  // describe('/api/v1/cerebral_beers/styles')
+  describe('/api/v1/cerebral_beers/beer', () => {
+      it('should have a 200 status', (done) => {
+        chai.request(app)
+          .get('/api/v1/cerebral_beers/beer')
+          .end((error, response) => {
+            expect(response).to.have.status(200)
+            done()
+          })
+      })
+  })
 
 })
