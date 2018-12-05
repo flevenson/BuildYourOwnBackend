@@ -75,6 +75,16 @@ app.get("/api/v1/cerebral_beers/find_by_style", (request, response) => {
     .catch(error => console.log(`Error fetching style: ${error.message}`));
 });
 
+app.get("/api/v1/cerebral_beers/currently_available", (request, response) => {
+  database("beers")
+    .where("is_available", true)
+    .select()
+    .then(beers => response.status(200).json(beers))
+    .catch(error =>
+      console.log(`Error fetching currently available beers: ${error.message}`)
+    );
+});
+
 app.listen(app.get("port"), () => {
   console.log(`Cerebral Beer is running on ${app.get("port")}.`);
 });
