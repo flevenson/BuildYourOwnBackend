@@ -8,7 +8,6 @@ const database = require("knex")(config);
 chai.use(chaiHttp);
 
 describe("Server file", () => {
-
   beforeEach(done => {
     database.seed.run().then(() => {
       done();
@@ -93,6 +92,18 @@ describe("Server file", () => {
         .end((error, response) => {
           expect(response.body).to.be.a("array");
           expect(response.body.length).to.equal(3);
+          done();
+        });
+    });
+  });
+
+  describe("/api/v1/cerebral_beers/:style_id/beers", () => {
+    it("should have a 200 status", done => {
+      chai
+        .request(app)
+        .get("/api/v1/cerebral_beers/:style_id/beers")
+        .end((error, response) => {
+          expect(response).to.have.status(200);
           done();
         });
     });
