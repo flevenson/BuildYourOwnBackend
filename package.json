@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --exit"
+    "test": "NODE_ENV=test mocha --exit",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",

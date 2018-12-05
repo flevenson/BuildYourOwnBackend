@@ -1,113 +1,99 @@
-process.env.NODE_ENV = 'test'
+process.env.NODE_ENV = "test";
+const chai = require("chai");
+const chaiHttp = require("chai-http");
+const app = require("../server.js");
+const expect = chai.expect;
+const config = require("../knexfile")["test"];
+const database = require("knex")(config);
+chai.use(chaiHttp);
 
-const chai = require('chai')
-const chaiHttp = require('chai-http')
-const app = require ('../server.js')
-const expect = chai.expect
-chai.use(chaiHttp)
-const config = require('../knexfile')['test']
-const database = require('knex')(config)
-
-describe('Server file', () => {
-
-  before(done => {
-    database.migrate.rollback()
-    .then(() => {
-      database.migrate.latest()
-    })
-    .then(() => {
-      database.seed.run()
-    })
-    .then(() => {
-      done()
-    })
-  })
-
+describe("Server file", () => {
   beforeEach(done => {
-    database.seed.run()
-    .then(() => {
-      done()
-    })
-  })
+    database.seed.run().then(() => {
+      done();
+    });
+  });
 
-  describe('/api/v1/cerebral_beers/styles', () => {
-    it('should have a 200 status', (done) => {
-      chai.request(app)
-        .get('/api/v1/cerebral_beers/styles')
+  describe("/api/v1/cerebral_beers/styles", () => {
+    it("should have a 200 status", done => {
+      chai
+        .request(app)
+        .get("/api/v1/cerebral_beers/styles")
         .end((error, response) => {
-          expect(response).to.have.status(200)
-          done()
-        })
-    })
+          expect(response).to.have.status(200);
+          done();
+        });
+    });
 
-    it('should return the data as JSON', (done) => {
-      chai.request(app)
-        .get('/api/v1/cerebral_beers/styles')
+    it("should return the data as JSON", done => {
+      chai
+        .request(app)
+        .get("/api/v1/cerebral_beers/styles")
         .end((error, response) => {
-          expect(response).to.be.json
-          done()
-        })
-    })
+          expect(response).to.be.json;
+          done();
+        });
+    });
 
-    it('should return an array with all of the beer styles', (done) => {
-      chai.request(app)
-        .get('/api/v1/cerebral_beers/styles')
+    it("should return an array with all of the beer styles", done => {
+      chai
+        .request(app)
+        .get("/api/v1/cerebral_beers/styles")
         .end((error, response) => {
-          expect(response.body).to.be.a('array')
-          expect(response.body.length).to.equal(43)
-          done()
-        })
-    })
+          expect(response.body).to.be.a("array");
+          expect(response.body.length).to.equal(43);
+          done();
+        });
+    });
 
-    it('should correctly add a new style', (done) => {
+    it("should correctly add a new style", done => {
       const newStyle = {
-        style_name: 'freddies secret style',
-        description: 'omg so amazing wow'
-      }
+        style_name: "freddies secret style",
+        description: "omg so amazing wow"
+      };
 
-      chai.request(app)
-        .post('/api/v1/cerebral_beers/styles')
+      chai
+        .request(app)
+        .post("/api/v1/cerebral_beers/styles")
         .send(newStyle)
         .end((error, response) => {
-          expect(response).to.have.status(201)
-          expect(response.body).to.equal('Beer Style successfully added!')
-          done()
-        })
-    })
+          expect(response).to.have.status(201);
+          expect(response.body).to.equal("Beer Style successfully added!");
+          done();
+        });
+    });
+  });
 
+  describe("/api/v1/cerebral_beers/beer", () => {
+    it("should have a 200 status", done => {
+      chai
+        .request(app)
+        .get("/api/v1/cerebral_beers/beer")
+        .end((error, response) => {
+          expect(response).to.have.status(200);
+          done();
+        });
+    });
 
-  })
+    it("should return the data as JSON", done => {
+      chai
+        .request(app)
+        .get("/api/v1/cerebral_beers/beer")
+        .end((error, response) => {
+          expect(response).to.be.json;
+          done();
+        });
+    });
 
-  describe('/api/v1/cerebral_beers/beer', () => {
-      it('should have a 200 status', (done) => {
-        chai.request(app)
-          .get('/api/v1/cerebral_beers/beer')
-          .end((error, response) => {
-            expect(response).to.have.status(200)
-            done()
-          })
-      })
-
-
-      it('should return the data as JSON', (done) => {
-        chai.request(app)
-          .get('/api/v1/cerebral_beers/beer')
-          .end((error, response) => {
-            expect(response).to.be.json
-            done()
-          })
-      })
-
-      it('should return an array with all of the beer', (done) => {
-        chai.request(app)
-          .get('/api/v1/cerebral_beers/beer')
-          .end((error, response) => {
-            expect(response.body).to.be.a('array')
-            expect(response.body.length).to.equal(98)
-            done()
-          })
-      })
-
-  })
-
-})
+    it("should return an array with all of the beer", done => {
+      chai
+        .request(app)
+        .get("/api/v1/cerebral_beers/beer")
+        .end((error, response) => {
+          expect(response.body).to.be.a("array");
+          expect(response.body.length).to.equal(98);
+          done();
+        });
+    });
+  });
+});
