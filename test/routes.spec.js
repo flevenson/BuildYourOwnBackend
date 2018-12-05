@@ -154,6 +154,7 @@ describe("Server file", () => {
           done();
         });
     });
+
     it("expect error message if request does no include style_name", done => {
       chai
         .request(app)
@@ -164,6 +165,20 @@ describe("Server file", () => {
           expect(response.body.error).to.equal(
             "Request must include 'style_name'. All first letter must be capitalized and spaces replaced by pluses. Example: '/api/v1/cerebral_beers/find_by_style?style_name=India+Pale+Ale'"
           );
+          done();
+        });
+    });
+
+    it("expect error message if style does not exist in db", done => {
+      chai
+        .request(app)
+        .get(
+          "/api/v1/cerebral_beers/find_by_style?style_name=mystery+style"
+        )
+        .end((error, response) => {
+          expect(response.body.error).to.equal(
+          'No beers found of style: mystery style'
+            );
           done();
         });
     });

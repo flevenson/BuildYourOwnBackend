@@ -67,7 +67,7 @@ app.get("/api/v1/cerebral_beers/find_by_style", (request, response) => {
           error: `No beers found of style: ${style_name}`
         });
       }
-      database("beers")
+      return database("beers")
         .where("style_id", style[0].id)
         .select();
     })
