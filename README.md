@@ -63,10 +63,10 @@ This endpoint allows users to add a new beer. A beer may not be added if its sty
 
 ---
 
-- **PATCH** - Update Availability of a Beer:
+- **PATCH** - Update Availability and ABV of a Beer:
   `/api/v1/cerebral_beers/beer/:name/:availability/:abv`
 
-This endpoint allows users to update the availability of a specific beer to true or false, while also updating the ABV. ABV's must be sent as a number. An underscore may be included to indicate a decimal (ex. 5_5 will become "5.5% ABV"). Valid requests will receive `Availibility and ABV of [name] sucessfully updated!` in response.
+This endpoint allows users to update the availability of a specific beer to true or false, while also updating the ABV. ABV's must be sent as a number. An underscore may be included to indicate a decimal (ex. 5_5 will become "5.5% ABV"). Valid requests will receive `Availability and ABV of [name] sucessfully updated!` in response.
 
 #### Example Requests:
 
@@ -79,7 +79,7 @@ This endpoint allows users to update the availability of a specific beer to true
 - **PATCH** - Update Availability of a Beer:
   `/api/v1/cerebral_beers/beer/:name/:availability`
 
-This endpoint allows users to update the availability of a specific beer to true or false. Valid requests will receive `Availibility of [name] sucessfully updated!` in response.
+This endpoint allows users to update the availability of a specific beer to true or false. Valid requests will receive `Availability of [name] sucessfully updated!` in response.
 
 #### Example Requests:
 
@@ -166,7 +166,7 @@ This endpoint allows users to create a new beer style. The request object requir
 ```
   {
     "description": "Pilsner is a pale lager which takes its name from the Bohemian city of Pilsen."
-    "name": "Pilsner"
+    "style_name": "Pilsner"
   }
 ```
 

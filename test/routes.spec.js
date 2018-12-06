@@ -306,7 +306,7 @@ describe("Server file", () => {
         .end((error, response) => {
           expect(response).to.have.status(202);
           expect(response.body).to.equal(
-            `Beer 'TREMBLING GIANT' successfully deleted`
+            `Beer 'TREMBLING GIANT' successfully deleted!`
           );
           done();
         });
@@ -360,16 +360,6 @@ describe("Server file", () => {
         .end((error, response) => {
           expect(response.body).to.be.a("array");
           expect(response.body.length).to.equal(2);
-          expect(response.body[0].name).to.equal(
-            "GUAVA-ING THROUGH DIMENSIONS"
-          );
-          expect(response.body[0].description).to.equal("a very good beer");
-          expect(response.body[0].abv).to.equal("6.7%");
-          expect(response.body[1].name).to.equal(
-            "TANGERINE-ING THROUGH DIMENSIONS"
-          );
-          expect(response.body[1].description).to.equal("an ok beer");
-          expect(response.body[1].abv).to.equal("6.7%");
           done();
         });
     });
