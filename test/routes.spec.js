@@ -142,7 +142,9 @@ describe("Server file", () => {
         .request(app)
         .delete("/api/v1/cerebral_beers/beer/Trembling+Giant")
         .end((error, response) => {
-          expect(response.body).to.equal(`Beer 'TREMBLING GIANT' successfully deleted`);
+          expect(response.body).to.equal(
+            `Beer 'TREMBLING GIANT' successfully deleted`
+          );
           done();
         });
     });
@@ -226,7 +228,7 @@ describe("Server file", () => {
       it("should have a 200 status", done => {
         chai
           .request(app)
-          .get("/api/v1/cerebral_beers/currently_available")
+          .get("/api/v1/cerebral_beers/currently_available/true")
           .end((error, response) => {
             expect(response).to.have.status(200);
             done();
@@ -236,7 +238,7 @@ describe("Server file", () => {
       it("should return the data as JSON", done => {
         chai
           .request(app)
-          .get("/api/v1/cerebral_beers/currently_available")
+          .get("/api/v1/cerebral_beers/currently_available/true")
           .end((error, response) => {
             expect(response).to.be.json;
             done();
@@ -246,10 +248,21 @@ describe("Server file", () => {
       it("should return an array with all of the beer currently available", done => {
         chai
           .request(app)
-          .get("/api/v1/cerebral_beers/currently_available")
+          .get("/api/v1/cerebral_beers/currently_available/true")
           .end((error, response) => {
             expect(response.body).to.be.a("array");
             expect(response.body.length).to.equal(2);
+            done();
+          });
+      });
+      
+      it("should return an array with all of the beer not currently available", done => {
+        chai
+          .request(app)
+          .get("/api/v1/cerebral_beers/currently_available/false")
+          .end((error, response) => {
+            expect(response.body).to.be.a("array");
+            expect(response.body.length).to.equal(1);
             done();
           });
       });
