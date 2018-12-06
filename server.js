@@ -40,24 +40,29 @@ app.post("/api/v1/cerebral_beers/styles", (request, response) => {
     });
 });
 
-// app.delete("/api/v1/cerebral_beers/beer/:name", (request, response) => {
-//   let { name } = request.params;
-//   name = name.replace("+", " ").toUpperCase();
+app.delete("/api/v1/cerebral_beers/styles/:name", (request, response) => {
+  let { name } = request.params;
+  name = name.replace("+", " ");
 
-//   database("beers")
-//     .where("name", name)
-//     .del()
-//     .then(style => {
-//       if (style === 0) {
-//         response.status(404).json(`No beer '${name}' found in database`);
-//       } else {
-//         response.status(202).json(`Beer '${name}' successfully deleted`);
-//       }
-//     })
-//     .catch(error => {
-//       response.status(500).json({ error: error.message });
-//     });
-// });
+  database("beer_styles")
+    .where("style_name", name)
+    .del()
+    .then(style => {
+      if (style === 0) {
+        response.status(404).json(`No style '${name}' found in database`);
+      } else {
+        response.status(202).json(`Style '${name}' successfully deleted`);
+      }
+    })
+    .catch(error => {
+      response
+        .status(500)
+        .json({
+          error:
+            "You're most likely trying to delete a style that has beers attached to it. Please remove those beers first!"
+        });
+    });
+});
 
 app.get("/api/v1/cerebral_beers/beer", (request, response) => {
   database("beers")
@@ -121,8 +126,8 @@ app.delete("/api/v1/cerebral_beers/beer/:name", (request, response) => {
   database("beers")
     .where("name", name)
     .del()
-    .then(style => {
-      if (style === 0) {
+    .then(beer => {
+      if (beer === 0) {
         response.status(404).json(`No beer '${name}' found in database`);
       } else {
         response.status(202).json(`Beer '${name}' successfully deleted`);
