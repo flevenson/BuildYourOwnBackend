@@ -1,4 +1,4 @@
-<img src="https://github.com/flevenson/BuildYourOwnBackend/blob/master/images/cerebral-logo.png" width="100%"/>
+<img src="https://github.com/flevenson/BuildYourOwnBackend/blob/master/images/cerebral-logo.png" style="margin:20%;"> width="60%"/>
 
 [![Build Status](https://travis-ci.org/flevenson/BuildYourOwnBackend.svg?branch=master)](https://travis-ci.org/flevenson/BuildYourOwnBackend)
 
