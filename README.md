@@ -15,7 +15,7 @@
 
 This endpoint will return an array of all Cerebral beers, current and passed.
 
-##### Example Response
+#### Example Response
 
 ```
   [
@@ -49,7 +49,7 @@ This endpoint will return an array of all Cerebral beers, current and passed.
 
 This endpoint allows users to add a new beer. A beer may not be added if its style is not already in the database. The request object requires `name`, `description`, `abv`, `is_available` and `style` properties. Valid posts will receive `Beer successfully added!` in response.
 
-##### Example Request:
+#### Example Request:
 
 ```
 {
@@ -68,7 +68,7 @@ This endpoint allows users to add a new beer. A beer may not be added if its sty
 
 This endpoint allows users to update the availability of a specific beer to true or false, while also updating the ABV. ABV's must be sent as a number. An underscore may be included to indicate a decimal (ex. 5_5 will become "5.5% ABV"). Valid requests will receive `Availibility and ABV of [name] sucessfully updated!` in response.
 
-##### Example Requests:
+#### Example Requests:
 
 `api/v1/cerebral_beers/beer/hollow+fang/true/5_5`
 
@@ -81,7 +81,7 @@ This endpoint allows users to update the availability of a specific beer to true
 
 This endpoint allows users to update the availability of a specific beer to true or false. Valid requests will receive `Availibility of [name] sucessfully updated!` in response.
 
-##### Example Requests:
+#### Example Requests:
 
 `api/v1/cerebral_beers/beer/hollow+fang/true`
 
@@ -105,7 +105,7 @@ This endpoint allows users to delete a beer. Valid deletions will receive `Beer 
 
 This endpoint will return an array of all beer styles.
 
-##### Example Response:
+#### Example Response:
 
 ```
   [
@@ -131,7 +131,7 @@ This endpoint will return an array of all beer styles.
 
 This endpoint will return all beers of a specified style.
 
-##### Example Request:
+#### Example Request:
 
 ```
 '/api/v1/cerebral_beers/find_by_style?style_name=India+Pale+Ale'
@@ -161,7 +161,7 @@ All previously available beers may be retieved:
 
 This endpoint allows users to create a new beer style. The request object requires `description` and `style_name` properties. Valid posts will receive `Beer Style successfully added!` in response.
 
-##### Example Request:
+#### Example Request:
 
 ```
   {
