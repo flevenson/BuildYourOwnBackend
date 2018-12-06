@@ -25,7 +25,7 @@ describe("Server file", () => {
   });
 
   describe("/api/v1/cerebral_beers/styles", () => {
-    it("should have a 200 status", done => {
+    it("get request should have a 200 status", done => {
       chai
         .request(app)
         .get("/api/v1/cerebral_beers/styles")
@@ -35,7 +35,7 @@ describe("Server file", () => {
         });
     });
 
-    it("should return the data as JSON", done => {
+    it("get request should return the data as JSON", done => {
       chai
         .request(app)
         .get("/api/v1/cerebral_beers/styles")
@@ -45,7 +45,7 @@ describe("Server file", () => {
         });
     });
 
-    it("should return an array with all of the beer styles", done => {
+    it("get request should return an array with all of the beer styles", done => {
       chai
         .request(app)
         .get("/api/v1/cerebral_beers/styles")
@@ -56,7 +56,7 @@ describe("Server file", () => {
         });
     });
 
-    it("should correctly add a new style", done => {
+    it("post request should correctly add a new style", done => {
       const newStyle = {
         style_name: "freddies secret style",
         description: "omg so amazing wow"
@@ -72,10 +72,21 @@ describe("Server file", () => {
           done();
         });
     });
+
+    // it("delete request should correctly delete style", done => {
+    //   chai
+    //     .request(app)
+    //     .delete("/api/v1/cerebral_beers/styles/style_name?Brettanomyces+Saison")
+    //     .end((error, response) => {
+    //       console.log(response.error)
+    //       //expect(response).to.be.json;
+    //       done();
+    //     });
+    // });
   });
 
   describe("/api/v1/cerebral_beers/beer", () => {
-    it("should have a 200 status", done => {
+    it("get request should have a 200 status", done => {
       chai
         .request(app)
         .get("/api/v1/cerebral_beers/beer")
@@ -85,7 +96,7 @@ describe("Server file", () => {
         });
     });
 
-    it("should return the data as JSON", done => {
+    it("get request should return the data as JSON", done => {
       chai
         .request(app)
         .get("/api/v1/cerebral_beers/beer")
@@ -95,13 +106,43 @@ describe("Server file", () => {
         });
     });
 
-    it("should return an array with all of the beer", done => {
+    it("get request should return an array with all of the beer", done => {
       chai
         .request(app)
         .get("/api/v1/cerebral_beers/beer")
         .end((error, response) => {
           expect(response.body).to.be.a("array");
           expect(response.body.length).to.equal(3);
+          done();
+        });
+    });
+
+    it("post request should correctly add new beer", done => {
+      const newBeer = {
+        name: "freddies secret beer",
+        description: "omg so amazing wow",
+        abv: "110%",
+        is_available: true,
+        style: "Brettanomyces Saison"
+      };
+
+      chai
+        .request(app)
+        .post("/api/v1/cerebral_beers/beer")
+        .send(newBeer)
+        .end((error, response) => {
+          expect(response).to.have.status(201);
+          expect(response.body).to.equal("Beer successfully added!");
+          done();
+        });
+    });
+
+    it("delete request should correctly delete beer", done => {
+      chai
+        .request(app)
+        .delete("/api/v1/cerebral_beers/beer/Trembling+Giant")
+        .end((error, response) => {
+          expect(response.body).to.equal(`Beer 'TREMBLING GIANT' successfully deleted`);
           done();
         });
     });
@@ -142,12 +183,12 @@ describe("Server file", () => {
           expect(response.body).to.be.a("array");
           expect(response.body.length).to.equal(2);
           expect(response.body[0].name).to.equal(
-            "Guava-ing Through Dimensions"
+            "GUAVA-ING THROUGH DIMENSIONS"
           );
           expect(response.body[0].description).to.equal("a very good beer");
           expect(response.body[0].abv).to.equal("6.7%");
           expect(response.body[1].name).to.equal(
-            "Tangerine-ing Through Dimensions"
+            "TANGERINE-ING THROUGH DIMENSIONS"
           );
           expect(response.body[1].description).to.equal("an ok beer");
           expect(response.body[1].abv).to.equal("6.7%");
@@ -180,7 +221,7 @@ describe("Server file", () => {
           done();
         });
     });
-    
+
     describe("/api/v1/cerebral_beers/currently_available", () => {
       it("should have a 200 status", done => {
         chai

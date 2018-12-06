@@ -1,8 +1,8 @@
 const beerData = require("../../../public/cleaner.js");
 const beers = [
-{name: 'Trembling Giant', abv: '6.9%', description: 'a good beer', availability: true, beerStyle: "Barrel Aged Biere de Garde"},
-{name: 'Guava-ing Through Dimensions', abv: '6.7%', description: 'a very good beer', availability: true, beerStyle: "Brettanomyces Saison"},
-{name: 'Tangerine-ing Through Dimensions', abv: '6.7%', description: 'an ok beer', availability: false, beerStyle: "Brettanomyces Saison"},
+{name: 'TREMBLING GIANT', abv: '6.9%', description: 'a good beer', availability: true, beerStyle: "Barrel Aged Biere de Garde"},
+{name: 'GUAVA-ING THROUGH DIMENSIONS', abv: '6.7%', description: 'a very good beer', availability: true, beerStyle: "Brettanomyces Saison"},
+{name: 'TANGERINE-ING THROUGH DIMENSIONS', abv: '6.7%', description: 'an ok beer', availability: false, beerStyle: "Brettanomyces Saison"},
 ];
 
 const styles = [
