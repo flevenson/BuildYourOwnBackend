@@ -1,15 +1,21 @@
-<img src="https://github.com/flevenson/BuildYourOwnBackend/blob/master/images/cerebral-logo.png" width="400px"/>
+<img src="https://github.com/flevenson/BuildYourOwnBackend/blob/master/images/cerebral-logo.png" width="500px"/>
+
+[![Build Status](https://travis-ci.org/flevenson/BuildYourOwnBackend.svg?branch=master)](https://travis-ci.org/flevenson/BuildYourOwnBackend)
+
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/flevenson/BuildYourOwnBackend.svg?columns=all)](https://waffle.io/flevenson/BuildYourOwnBackend)
+
 
 # Cerebral Beers :beers::beers::beers:
 
 **Table of Contents**
 
-- [Beers](#-beers)
-- [Styles](#-styles)
+- [Beers](#beers)
+- [Styles](#styles)
 
 ---
 
-## Beers :beer:
+:beer::beer::beer:
+## Beers 
 
 - **GET** - Get All Beers: `/api/v1/cerebral_beers/beer`
 
@@ -99,7 +105,8 @@ This endpoint allows users to delete a beer. Valid deletions will receive `Beer 
 
 ---
 
-## Styles :beer:
+:beer::beer::beer:
+## Styles 
 
 - **GET** - Get All Styles: `/api/v1/cerebral_beers/styles`
 
