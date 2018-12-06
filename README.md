@@ -66,11 +66,12 @@ This endpoint allows users to add a new beer. A beer may not be added if its sty
 - **PATCH** - Update Availability of a Beer:
   `/api/v1/cerebral_beers/beer/:name/:availability/:abv`
 
-This endpoint allows users to update the availability of a specific beer to true or false and also the ABV. ABV's must be sent as a number. An underscore may be included to indicate a decimal (ex. 5_5 will become `5.5% ABV`). Valid requests will receive `Availibility and ABV of [name] sucessfully updated!` in response.
+This endpoint allows users to update the availability of a specific beer to true or false, while also updating the ABV. ABV's must be sent as a number. An underscore may be included to indicate a decimal (ex. 5_5 will become "5.5% ABV"). Valid requests will receive `Availibility and ABV of [name] sucessfully updated!` in response.
 
 ##### Example Requests:
 
 `api/v1/cerebral_beers/beer/hollow+fang/true/5_5`
+
 `api/v1/cerebral_beers/beer/Remote+Island/False/10_7`
 
 ---
@@ -83,6 +84,7 @@ This endpoint allows users to update the availability of a specific beer to true
 ##### Example Requests:
 
 `api/v1/cerebral_beers/beer/hollow+fang/true`
+
 `api/v1/cerebral_beers/beer/Remote+Island/False`
 
 ---
