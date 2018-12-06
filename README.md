@@ -4,14 +4,14 @@
 
 **Table of Contents**
 
-- [Beers](#beers)
-- [Styles](#styles)
+- [Beers](#-beers)
+- [Styles](#-styles)
 
 ---
 
 ## Beers :beer:
 
-- **GET** - All Beers: `/api/v1/cerebral_beers/beer`
+- **GET** - Get All Beers: `/api/v1/cerebral_beers/beer`
 
 This endpoint will return an array of all Cerebral beers, current and passed.
 
@@ -99,7 +99,7 @@ This endpoint allows users to delete a beer. Valid deletions will receive `Beer 
 
 ## Styles :beer:
 
-- **GET** - All Styles: `/api/v1/cerebral_beers/styles`
+- **GET** - Get All Styles: `/api/v1/cerebral_beers/styles`
 
 Hitting this endpoint will return an array of all beer styles.
 
@@ -125,7 +125,7 @@ Hitting this endpoint will return an array of all beer styles.
 ```
 ---
 
-- **GET** - Find All Beers of a Style: `/api/v1/cerebral_beers/find_by_style`
+- **GET** - Get All Beers of a Style: `/api/v1/cerebral_beers/find_by_style`
 
 Hitting this endpoint will return all beers of a specified style.
 
@@ -138,7 +138,7 @@ Hitting this endpoint will return all beers of a specified style.
 
 ---
 
-- **GET** - Find All Currently Available Beers: `/api/v1/cerebral_beers/currently_available/:availability`
+- **GET** - Get All Currently Available Beers: `/api/v1/cerebral_beers/currently_available/:availability`
 
 Hitting this endpoint will return all currently available beers.
 
