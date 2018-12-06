@@ -103,7 +103,7 @@ This endpoint allows users to delete a beer. Valid deletions will receive `Beer 
 
 - **GET** - Get All Styles: `/api/v1/cerebral_beers/styles`
 
-Hitting this endpoint will return an array of all beer styles.
+This endpoint will return an array of all beer styles.
 
 ##### Example Response:
 
@@ -129,9 +129,9 @@ Hitting this endpoint will return an array of all beer styles.
 
 - **GET** - Get All Beers of a Style: `/api/v1/cerebral_beers/find_by_style`
 
-Hitting this endpoint will return all beers of a specified style.
+This endpoint will return all beers of a specified style.
 
-##### Example Response:
+##### Example Request:
 
 ```
 '/api/v1/cerebral_beers/find_by_style?style_name=India+Pale+Ale'
@@ -142,9 +142,7 @@ Hitting this endpoint will return all beers of a specified style.
 
 - **GET** - Get All Currently Available Beers: `/api/v1/cerebral_beers/currently_available/:availability`
 
-Hitting this endpoint will return all currently available beers.
-
-##### Example Response:
+This endpoint will return all currently available beers.
 
 ```
 '/api/v1/cerebral_beers/currently_available/true'
