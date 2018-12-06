@@ -45,7 +45,7 @@ This endpoint will return an array of all Cerebral beers, current and passed.
 
 ---
 
-- **POST** - Add a Style: `/api/v1/cerebral_beers/beer`
+- **POST** - Add a Beer: `/api/v1/cerebral_beers/beer`
 
 This endpoint allows users to add a new beer. A beer may not be added if its style is not already in the database. The request object requires `name`, `description`, `abv`, `is_available` and `style` properties. Valid posts will receive `Beer successfully added!` in response.
 
@@ -123,7 +123,38 @@ Hitting this endpoint will return an array of all beer styles.
     }
   ]
 ```
+---
 
+- **GET** - Find All Beers of a Style: `/api/v1/cerebral_beers/find_by_style`
+
+Hitting this endpoint will return all beers of a specified style.
+
+##### Example Response:
+
+```
+'/api/v1/cerebral_beers/find_by_style?style_name=India+Pale+Ale'
+
+```
+
+---
+
+- **GET** - Find All Currently Available Beers: `/api/v1/cerebral_beers/currently_available/:availability`
+
+Hitting this endpoint will return all currently available beers.
+
+##### Example Response:
+
+```
+'/api/v1/cerebral_beers/currently_available/true'
+
+```
+
+All previously available beers may be retieved:
+
+```
+'/api/v1/cerebral_beers/currently_available/false'
+
+```
 ---
 
 - **POST** - Add a Style: `/api/v1/cerebral_beers/styles`
