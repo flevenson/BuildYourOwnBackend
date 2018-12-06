@@ -42,7 +42,7 @@ app.post("/api/v1/cerebral_beers/styles", (request, response) => {
 
 app.delete("/api/v1/cerebral_beers/styles/:name", (request, response) => {
   let { name } = request.params;
-  name = name.replace("+", " ");
+  name = name.replace(/\+/g, " ");
 
   database("beer_styles")
     .where("style_name", name)
@@ -121,7 +121,7 @@ app.patch(
   "/api/v1/cerebral_beers/beer/:name/:availability",
   (request, response) => {
     let { name, availability } = request.params;
-    name = name.replace("+", " ").toUpperCase();
+    name = name.replace(/\+/g, " ").toUpperCase();
     availability = availability.toLowerCase();
 
     if (availability !== "true" && availability !== "false") {
@@ -184,7 +184,7 @@ app.patch(
 
 app.delete("/api/v1/cerebral_beers/beer/:name", (request, response) => {
   let { name } = request.params;
-  name = name.replace("+", " ").toUpperCase();
+  name = name.replace(/\+/g, " ").toUpperCase();
 
   database("beers")
     .where("name", name)
@@ -193,7 +193,7 @@ app.delete("/api/v1/cerebral_beers/beer/:name", (request, response) => {
       if (beer === 0) {
         response.status(404).json(`No beer '${name}' found in database`);
       } else {
-        response.status(202).json(`Beer '${name}' successfully deleted`);
+        response.status(202).json(`Beer '${name}' successfully deleted!`);
       }
     })
     .catch(error => {

@@ -1,3 +1,5 @@
+<img src="https://github.com/flevenson/BuildYourOwnBackend/blob/master/images/cerebral-logo.png" width="400px"/>
+
 # Cerebral Beers :beers::beers::beers:
 
 **Table of Contents**
@@ -40,6 +42,59 @@ This endpoint will return an array of all Cerebral beers, current and passed.
   ]
 
 ```
+
+---
+
+- **POST** - Add a Style: `/api/v1/cerebral_beers/beer`
+
+This endpoint allows users to add a new beer. A beer may not be added if its style is not already in the database. The request object requires `name`, `description`, `abv`, `is_available` and `style` properties. Valid posts will receive `Beer successfully added!` in response.
+
+##### Example Request:
+
+```
+{
+	"name": "Thornless",
+	"description": "Soured with a house culture of Lactobacillus then conditioned on over 330 pounds of blackberry as well as Ceylon cinnamon and Madagascar vanilla beans.",
+	"abv": "5.5% ABV",
+	"is_available": true,
+	"style": "Smoothie-Style Sour"
+}
+```
+
+---
+
+- **PATCH** - Update Availability of a Beer:
+  `/api/v1/cerebral_beers/beer/:name/:availability/:abv`
+
+This endpoint allows users to update the availability of a specific beer to true or false and also the ABV. ABV's must be sent as a number. An underscore may be included to indicate a decimal (ex. 5_5 will become `5.5% ABV`). Valid requests will receive `Availibility and ABV of [name] sucessfully updated!` in response.
+
+##### Example Requests:
+
+`api/v1/cerebral_beers/beer/hollow+fang/true/5_5`
+`api/v1/cerebral_beers/beer/Remote+Island/False/10_7`
+
+---
+
+- **PATCH** - Update Availability of a Beer:
+  `/api/v1/cerebral_beers/beer/:name/:availability`
+
+This endpoint allows users to update the availability of a specific beer to true or false. Valid requests will receive `Availibility of [name] sucessfully updated!` in response.
+
+##### Example Requests:
+
+`api/v1/cerebral_beers/beer/hollow+fang/true`
+`api/v1/cerebral_beers/beer/Remote+Island/False`
+
+---
+
+- **DELETE** - Delete a Beer: `/api/v1/cerebral_beers/beer/:name`
+
+This endpoint allows users to delete a beer. Valid deletions will receive `Beer [name] successfully deleted!` in response.
+
+#### Example Request:
+
+`/api/v1/cerebral_beers/beer/DDH+Strange+Claw`
+
 ---
 
 ## Styles :beer:
@@ -68,9 +123,10 @@ Hitting this endpoint will return an array of all beer styles.
     }
   ]
 ```
+
 ---
 
-- **POST** - Add A Style: `/api/v1/cerebral_beers/styles`
+- **POST** - Add a Style: `/api/v1/cerebral_beers/styles`
 
 This endpoint allows users to create a new beer style. The request object requires `description` and `style_name` properties. Valid posts will receive `Beer Style successfully added!` in response.
 
@@ -82,12 +138,15 @@ This endpoint allows users to create a new beer style. The request object requir
     "name": "Pilsner"
   }
 ```
+
 ---
 
-- **DELETE** - Delete A Style: `/api/v1/cerebral_beers/styles/:name`
+- **DELETE** - Delete a Style: `/api/v1/cerebral_beers/styles/:name`
 
-#### This endpoint allows users to delete a beer style. All spaces should be replaced with '+'.
+This endpoint allows users to delete a beer style. Valid deletions will receive `Style [name] successfully deleted!` in response.
 
-Example Request:
+A beer style may not be deleted if there is a beer in the database under that style. These requests will be met with a 405 error and `You're most likely trying to delete a style that has beers attached to it. Please remove those beers first!` in response.
 
-```/api/v1/cerebral_beers/styles/asdf```
+#### Example Request:
+
+`/api/v1/cerebral_beers/styles/India+Pale+Ale`
