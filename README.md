@@ -1,8 +1,9 @@
+<img src="https://github.com/flevenson/BuildYourOwnBackend/blob/master/images/cerebral-logo.png" width="100%"/>
+
 [![Build Status](https://travis-ci.org/flevenson/BuildYourOwnBackend.svg?branch=master)](https://travis-ci.org/flevenson/BuildYourOwnBackend)
 
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/flevenson/BuildYourOwnBackend.svg?columns=all)](https://waffle.io/flevenson/BuildYourOwnBackend)
 
-<img src="https://github.com/flevenson/BuildYourOwnBackend/blob/master/images/cerebral-logo.png" width="400px"/>
 
 # Cerebral Beers :beers::beers::beers:
 
