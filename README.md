@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/flevenson/BuildYourOwnBackend.svg?branch=master)](https://travis-ci.org/flevenson/BuildYourOwnBackend)
+
+[![Waffle.io - Issues in progress](https://badge.waffle.io/flevenson/BuildYourOwnBackend.png?label=in%20progress&title=In%20Progress)](http://waffle.io/flevenson/BuildYourOwnBackend)
+
 <img src="https://github.com/flevenson/BuildYourOwnBackend/blob/master/images/cerebral-logo.png" width="400px"/>
 
 # Cerebral Beers :beers::beers::beers:
