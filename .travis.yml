@@ -7,9 +7,9 @@ before_script:
 - psql -c 'CREATE DATABASE travis_test;' -U postgres
 notifications:
   email: false
-# deploy:
-#   provider: heroku
-#   api_key:
-#     secure: POZEVZ7mNwqAo1Ts6XjUVoQsQFdVPYus2d0VaYI1K...itGoesOnForAWhile
-#   app: travis-test-penguins
-#   skip_cleanup: true
+deploy:
+  provider: heroku
+  api_key:
+    secure: CCNSN6zP3/cMas3/7+oKqgBnqweI+aQynQc+StZXJi0AZzD50hYrT21rjYltzzhNRvLzPkyNPZOHAhktOkf+RrOOFU+qDaadNu3eB5PaV/H6NAzXv0hGW0NCm6DyseV8WkHhZySsz6GWFsLL8hGb6W/+egZ7MDf1G20uBITIE79zLQ+D74t/sgHGb95dYyY8YpP68q2/B0DrY8+Lo7kb8N6B2ckxRhCa+2K7hSOf3rS/HaArPOTDt7iPuoSQWevoLhopoDNWNv9uOcqHmB6LmGR3atyh0EOMhXQpbidNm+0NatiUqy63PV7rYN4zqDck4EEpCbQ6rreGxeuHoFb606ROkeUm5cEoAckpnL25LqiZ9G02B36ZKZdVrjCCtNo6GECFM4sYow6bXyTWWoYPVxk/VLYcmgFbWo00D3PBTgXUipEN3ZpZNM5mM7DQgHIrWX4jzTHCx+ZYjxJTzWG9pGZNWjbS2p9UDcGmqZkTNluLPSV0wI0PUyjaiasgKcJy2frbzcLHBUVfOyX1XAhL74OkYmSreqfOauQUt0EAwTp/qogD+Sn8lOp4GVKtUp1gB6Az64QkPbRXTkve8gBGUTjccMr0RSPvWC70zkyqIrpGpepK1Y0oJJa8e2+OZfPcT8wT+Y9gqtf9bPNVoQ94DZ0/7ftcSIsmJeyWsA/iF1U=
+  app: cerebral-beer-api
+  skip_cleanup: true
