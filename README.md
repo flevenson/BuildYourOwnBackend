@@ -9,12 +9,13 @@
 
 **Table of Contents**
 
-- [Beers](#-beers)
-- [Styles](#-styles)
+- [Beers](#beers)
+- [Styles](#styles)
 
 ---
 
-## Beers :beer:
+## Beers 
+:beer:
 
 - **GET** - Get All Beers: `/api/v1/cerebral_beers/beer`
 
@@ -104,7 +105,8 @@ This endpoint allows users to delete a beer. Valid deletions will receive `Beer 
 
 ---
 
-## Styles :beer:
+## Styles 
+:beer:
 
 - **GET** - Get All Styles: `/api/v1/cerebral_beers/styles`
 
