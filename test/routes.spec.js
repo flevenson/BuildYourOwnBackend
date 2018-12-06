@@ -142,8 +142,22 @@ describe("Server file", () => {
         .request(app)
         .delete("/api/v1/cerebral_beers/beer/Trembling+Giant")
         .end((error, response) => {
+          expect(response).to.have.status(202);
           expect(response.body).to.equal(
             `Beer 'TREMBLING GIANT' successfully deleted`
+          );
+          done();
+        });
+    });
+
+    it("delete request should return error message if beer does not exist", done => {
+      chai
+        .request(app)
+        .delete("/api/v1/cerebral_beers/beer/Grembling+Tiant")
+        .end((error, response) => {
+          expect(response).to.have.status(404);
+          expect(response.body).to.equal(
+            `No beer 'GREMBLING TIANT' found in database`
           );
           done();
         });
@@ -255,7 +269,7 @@ describe("Server file", () => {
             done();
           });
       });
-      
+
       it("should return an array with all of the beer not currently available", done => {
         chai
           .request(app)

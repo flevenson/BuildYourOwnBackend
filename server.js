@@ -40,17 +40,22 @@ app.post("/api/v1/cerebral_beers/styles", (request, response) => {
     });
 });
 
-// app.delete("/api/v1/cerebral_beers/styles", (request, response) => {
-//   const { style_name } = request.query;
-//   console.log(style_name)
-//   database("beer_styles")
-//     .where("style_name", style_name)
-//     //.del()
+// app.delete("/api/v1/cerebral_beers/beer/:name", (request, response) => {
+//   let { name } = request.params;
+//   name = name.replace("+", " ").toUpperCase();
+
+//   database("beers")
+//     .where("name", name)
+//     .del()
 //     .then(style => {
-//       response.status(202).json(`New style '${style}' successfully added!`);
+//       if (style === 0) {
+//         response.status(404).json(`No beer '${name}' found in database`);
+//       } else {
+//         response.status(202).json(`Beer '${name}' successfully deleted`);
+//       }
 //     })
 //     .catch(error => {
-//       response.status(500).json('asd');
+//       response.status(500).json({ error: error.message });
 //     });
 // });
 
@@ -117,7 +122,11 @@ app.delete("/api/v1/cerebral_beers/beer/:name", (request, response) => {
     .where("name", name)
     .del()
     .then(style => {
-      response.status(202).json(`Beer '${name}' successfully deleted`);
+      if (style === 0) {
+        response.status(404).json(`No beer '${name}' found in database`);
+      } else {
+        response.status(202).json(`Beer '${name}' successfully deleted`);
+      }
     })
     .catch(error => {
       response.status(500).json({ error: error.message });
