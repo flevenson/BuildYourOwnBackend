@@ -75,7 +75,7 @@ describe("Server file", () => {
 
     it("post request should return error message if missing properties", done => {
       const newStyle = {
-        style_name: "freddies secret style",
+        style_name: "freddies secret style"
       };
 
       chai
@@ -84,7 +84,9 @@ describe("Server file", () => {
         .send(newStyle)
         .end((error, response) => {
           expect(response).to.have.status(422);
-          expect(response.error.text).to.equal(`{"error":"Missing Properties description"}`);
+          expect(response.error.text).to.equal(
+            `{"error":"Missing Properties description"}`
+          );
           done();
         });
     });
@@ -186,7 +188,7 @@ describe("Server file", () => {
         name: "freddies secret beer",
         description: "omg so amazing wow",
         abv: "110%",
-        is_available: true,
+        is_available: true
       };
 
       chai
@@ -195,7 +197,9 @@ describe("Server file", () => {
         .send(newBeer)
         .end((error, response) => {
           expect(response).to.have.status(422);
-          expect(response.error.text).to.equal(`{"error":"Missing Properties style"}`);
+          expect(response.error.text).to.equal(
+            `{"error":"Missing Properties style"}`
+          );
           done();
         });
     });

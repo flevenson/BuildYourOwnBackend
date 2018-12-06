@@ -55,12 +55,10 @@ app.delete("/api/v1/cerebral_beers/styles/:name", (request, response) => {
       }
     })
     .catch(error => {
-      response
-        .status(405)
-        .json({
-          error:
-            "You're most likely trying to delete a style that has beers attached to it. Please remove those beers first!"
-        });
+      response.status(405).json({
+        error:
+          "You're most likely trying to delete a style that has beers attached to it. Please remove those beers first!"
+      });
     });
 });
 
@@ -118,6 +116,37 @@ app.post("/api/v1/cerebral_beers/beer", (request, response) => {
       });
     });
 });
+
+app.patch(
+  "/api/v1/cerebral_beers/beer/:name/:availability",
+  (request, response) => {
+    let { name, availability } = request.params;
+    name = name.replace("+", " ").toUpperCase();
+    availability = availability.toLowerCase();
+
+    if (availability !== "true" && availability !== "false") {
+      response.status(404).json(`Availability must be 'true' or 'false'`);
+    } else {
+      database("beers")
+        .where("name", name)
+        .update({ is_available: availability })
+        .then(numEdited => {
+          if (numEdited === 0) {
+            response
+              .status(404)
+              .json(`Beer '${name}' does not exist in database.`);
+          } else {
+            response
+              .status(202)
+              .json(`Availibility of ${name} sucessfully updated!`);
+          }
+        })
+        .catch(error => {
+          response.status(500).json({ error: error.message });
+        });
+    }
+  }
+);
 
 app.delete("/api/v1/cerebral_beers/beer/:name", (request, response) => {
   let { name } = request.params;
