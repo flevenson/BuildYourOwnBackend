@@ -51,7 +51,7 @@ describe("Server file", () => {
         .get("/api/v1/cerebral_beers/styles")
         .end((error, response) => {
           expect(response.body).to.be.a("array");
-          expect(response.body.length).to.equal(2);
+          expect(response.body.length).to.equal(3);
           done();
         });
     });
@@ -73,16 +73,44 @@ describe("Server file", () => {
         });
     });
 
-    // it("delete request should correctly delete style", done => {
-    //   chai
-    //     .request(app)
-    //     .delete("/api/v1/cerebral_beers/styles/style_name?Brettanomyces+Saison")
-    //     .end((error, response) => {
-    //       console.log(response.error)
-    //       //expect(response).to.be.json;
-    //       done();
-    //     });
-    // });
+    it("delete request should correctly delete style if no beers attached", done => {
+      chai
+        .request(app)
+        .delete("/api/v1/cerebral_beers/styles/Pilsner2")
+        .end((error, response) => {
+          expect(response).to.have.status(202);
+          expect(response.body).to.equal(
+            `Style 'Pilsner2' successfully deleted`
+          );
+          done();
+        });
+    });
+
+    it("delete request should return error message if style not in db", done => {
+      chai
+        .request(app)
+        .delete("/api/v1/cerebral_beers/styles/Pilsner3")
+        .end((error, response) => {
+          expect(response).to.have.status(404);
+          expect(response.body).to.equal(
+            `No style 'Pilsner3' found in database`
+          );
+          done();
+        });
+    });
+
+    it("delete request should error out if beers are attached", done => {
+      chai
+        .request(app)
+        .delete("/api/v1/cerebral_beers/styles/Brettanomyces Saison")
+        .end((error, response) => {
+          expect(response).to.have.status(405);
+          expect(response.error.text).to.equal(
+            `{"error":"You\'re most likely trying to delete a style that has beers attached to it. Please remove those beers first!"}`
+          );
+          done();
+        });
+    });
   });
 
   describe("/api/v1/cerebral_beers/beer", () => {

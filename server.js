@@ -56,7 +56,7 @@ app.delete("/api/v1/cerebral_beers/styles/:name", (request, response) => {
     })
     .catch(error => {
       response
-        .status(500)
+        .status(405)
         .json({
           error:
             "You're most likely trying to delete a style that has beers attached to it. Please remove those beers first!"
