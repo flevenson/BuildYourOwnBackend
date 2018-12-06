@@ -204,43 +204,99 @@ describe("Server file", () => {
         });
     });
 
-    it("patch request should update availability of beer", done => {
-      chai
-        .request(app)
-        .patch("/api/v1/cerebral_beers/beer/Trembling+Giant/true")
-        .end((error, response) => {
-          expect(response).to.have.status(202);
-          expect(response.body).to.equal(
-            `Availibility of TREMBLING GIANT sucessfully updated!`
-          );
-          done();
-        });
+    describe("patch availibility for /api/v1/cerebral_beers/beer", () => {
+      it("patch request should update availability of beer", done => {
+        chai
+          .request(app)
+          .patch("/api/v1/cerebral_beers/beer/Trembling+Giant/true")
+          .end((error, response) => {
+            expect(response).to.have.status(202);
+            expect(response.body).to.equal(
+              `Availibility of TREMBLING GIANT sucessfully updated!`
+            );
+            done();
+          });
+      });
+
+      it("patch request should fail if availibility not boolean", done => {
+        chai
+          .request(app)
+          .patch("/api/v1/cerebral_beers/beer/Trembling+Giant/nottrue")
+          .end((error, response) => {
+            expect(response).to.have.status(404);
+            expect(response.body).to.equal(
+              `Availability must be 'true' or 'false'`
+            );
+            done();
+          });
+      });
+
+      it("patch request should fail if beer not in database", done => {
+        chai
+          .request(app)
+          .patch("/api/v1/cerebral_beers/beer/Deep+Tought/true")
+          .end((error, response) => {
+            expect(response).to.have.status(404);
+            expect(response.body).to.equal(
+              `Beer 'DEEP TOUGHT' does not exist in database.`
+            );
+            done();
+          });
+      });
     });
 
-    it("patch request should fail if availibility not boolean", done => {
-      chai
-        .request(app)
-        .patch("/api/v1/cerebral_beers/beer/Trembling+Giant/nottrue")
-        .end((error, response) => {
-          expect(response).to.have.status(404);
-          expect(response.body).to.equal(
-            `Availability must be 'true' or 'false'`
-          );
-          done();
-        });
-    });
+    describe("patch availibility and abv for /api/v1/cerebral_beers/beer", () => {
+      it("patch request should update availability and abv of beer", done => {
+        chai
+          .request(app)
+          .patch("/api/v1/cerebral_beers/beer/Trembling+Giant/true/55")
+          .end((error, response) => {
+            expect(response).to.have.status(202);
+            expect(response.body).to.equal(
+              `Availibility and ABV of TREMBLING GIANT sucessfully updated!`
+            );
+            done();
+          });
+      });
 
-    it("patch request should fail if beer not in database", done => {
-      chai
-        .request(app)
-        .patch("/api/v1/cerebral_beers/beer/Deep+Tought/true")
-        .end((error, response) => {
-          expect(response).to.have.status(404);
-          expect(response.body).to.equal(
-            `Beer 'DEEP TOUGHT' does not exist in database.`
-          );
-          done();
-        });
+      it("patch request should fail if availibility not boolean", done => {
+        chai
+          .request(app)
+          .patch("/api/v1/cerebral_beers/beer/Trembling+Giant/nottrue/55")
+          .end((error, response) => {
+            expect(response).to.have.status(404);
+            expect(response.body).to.equal(
+              `Availability must be 'true' or 'false'`
+            );
+            done();
+          });
+      });
+
+      it("patch request should fail if abv not a number", done => {
+        chai
+          .request(app)
+          .patch("/api/v1/cerebral_beers/beer/Trembling+Giant/true/5asdf5")
+          .end((error, response) => {
+            expect(response).to.have.status(404);
+            expect(response.body).to.equal(
+              `Abv must be a number`
+            );
+            done();
+          });
+      });
+
+      it("patch request should fail if beer not in database", done => {
+        chai
+          .request(app)
+          .patch("/api/v1/cerebral_beers/beer/Deep+Tought/true/55")
+          .end((error, response) => {
+            expect(response).to.have.status(404);
+            expect(response.body).to.equal(
+              `Beer 'DEEP TOUGHT' does not exist in database.`
+            );
+            done();
+          });
+      });
     });
 
     it("delete request should correctly delete beer", done => {
