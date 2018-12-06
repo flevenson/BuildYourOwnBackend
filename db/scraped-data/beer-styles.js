@@ -33,7 +33,7 @@ module.exports = [
   "Dry-Hopped Table Saison",
   "All Colorado Saison",
   "Dry-Hopped Grisette",
-  "Brett Saison",
+  "Brettanomyces Saison",
   "Farmhouse Pale Ale",
   "Table Saison",
   "Mandarin Saison",
