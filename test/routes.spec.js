@@ -73,6 +73,22 @@ describe("Server file", () => {
         });
     });
 
+    it("post request should return error message if missing properties", done => {
+      const newStyle = {
+        style_name: "freddies secret style",
+      };
+
+      chai
+        .request(app)
+        .post("/api/v1/cerebral_beers/styles")
+        .send(newStyle)
+        .end((error, response) => {
+          expect(response).to.have.status(422);
+          expect(response.error.text).to.equal(`{"error":"Missing Properties description"}`);
+          done();
+        });
+    });
+
     it("delete request should correctly delete style if no beers attached", done => {
       chai
         .request(app)
@@ -161,6 +177,25 @@ describe("Server file", () => {
         .end((error, response) => {
           expect(response).to.have.status(201);
           expect(response.body).to.equal("Beer successfully added!");
+          done();
+        });
+    });
+
+    it("post request should return error message if missing properties", done => {
+      const newBeer = {
+        name: "freddies secret beer",
+        description: "omg so amazing wow",
+        abv: "110%",
+        is_available: true,
+      };
+
+      chai
+        .request(app)
+        .post("/api/v1/cerebral_beers/beer")
+        .send(newBeer)
+        .end((error, response) => {
+          expect(response).to.have.status(422);
+          expect(response.error.text).to.equal(`{"error":"Missing Properties style"}`);
           done();
         });
     });

@@ -113,7 +113,7 @@ app.post("/api/v1/cerebral_beers/beer", (request, response) => {
         });
     })
     .catch(error => {
-      response.status(500).json({
+      response.status(409).json({
         error: "That style does not exist. Try adding style to database first"
       });
     });
