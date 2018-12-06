@@ -25,6 +25,6 @@ const cleanStyles = cleanBeers.reduce((acc, beer) => {
   return acc;
 }, []);
 
-const beerData = [cleanBeers, cleanStyles];
+const beerData = cleanBeers;
 
 module.exports = beerData;
