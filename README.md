@@ -2,8 +2,8 @@
 
 **Table of Contents**
 
-- [Beers](#Beers)
-- [Styles](#Styles)
+- [Beers](#beers)
+- [Styles](#styles)
 
 ---
 
@@ -40,7 +40,6 @@ This endpoint will return an array of all Cerebral beers, current and passed.
   ]
 
 ```
-
 ---
 
 ## Styles :beer:
@@ -49,7 +48,7 @@ This endpoint will return an array of all Cerebral beers, current and passed.
 
 Hitting this endpoint will return an array of all beer styles.
 
-##### Example Response
+##### Example Response:
 
 ```
   [
@@ -69,12 +68,13 @@ Hitting this endpoint will return an array of all beer styles.
     }
   ]
 ```
+---
 
 - **POST** - Add A Style: `/api/v1/cerebral_beers/styles`
 
-This endpoint allows the user to create a new beer style. The request object requires a `description` and `style_name` properties. Valid posts will receive ```Beer Style successfully added!``` in response.
+This endpoint allows users to create a new beer style. The request object requires `description` and `style_name` properties. Valid posts will receive `Beer Style successfully added!` in response.
 
-##### Example Request
+##### Example Request:
 
 ```
   {
@@ -82,3 +82,12 @@ This endpoint allows the user to create a new beer style. The request object req
     "name": "Pilsner"
   }
 ```
+---
+
+- **DELETE** - Delete A Style: `/api/v1/cerebral_beers/styles/:name`
+
+#### This endpoint allows users to delete a beer style. All spaces should be replaced with '+'.
+
+Example Request:
+
+```/api/v1/cerebral_beers/styles/asdf```
