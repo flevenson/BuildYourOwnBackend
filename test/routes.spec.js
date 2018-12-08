@@ -255,36 +255,35 @@ describe("Server file", () => {
     });
 
     describe("patch availibility and abv for /api/v1/cerebral_beers/beer", () => {
-      it("patch request should update availability and abv of beer", done => {
+      it("patch request should update abv of beer", done => {
+        const newAbv = {
+          name: "trembling giant",
+          abv: 110,
+        };
+
         chai
           .request(app)
-          .patch("/api/v1/cerebral_beers/beer/Trembling+Giant/true/55")
+          .patch("/api/v1/cerebral_beers/beer/")
+          .send(newAbv)
           .end((error, response) => {
             expect(response).to.have.status(202);
             expect(response.body).to.equal(
-              `Availibility and ABV of TREMBLING GIANT sucessfully updated!`
-            );
-            done();
-          });
-      });
-
-      it("patch request should fail if availibility not boolean", done => {
-        chai
-          .request(app)
-          .patch("/api/v1/cerebral_beers/beer/Trembling+Giant/nottrue/55")
-          .end((error, response) => {
-            expect(response).to.have.status(404);
-            expect(response.body).to.equal(
-              `Availability must be 'true' or 'false'`
+              `ABV of TREMBLING GIANT sucessfully updated!`
             );
             done();
           });
       });
 
       it("patch request should fail if abv not a number", done => {
+        const newAbv = {
+          name: "trembling giant",
+          abv: 'asdf',
+        };
+        
         chai
           .request(app)
-          .patch("/api/v1/cerebral_beers/beer/Trembling+Giant/true/5asdf5")
+          .patch("/api/v1/cerebral_beers/beer/")
+          .send(newAbv)
           .end((error, response) => {
             expect(response).to.have.status(404);
             expect(response.body).to.equal(
@@ -295,9 +294,15 @@ describe("Server file", () => {
       });
 
       it("patch request should fail if beer not in database", done => {
+        const newAbv = {
+          name: "deep tought",
+          abv: 5.5,
+        };
+        
         chai
           .request(app)
-          .patch("/api/v1/cerebral_beers/beer/Deep+Tought/true/55")
+          .patch("/api/v1/cerebral_beers/beer/")
+          .send(newAbv)
           .end((error, response) => {
             expect(response).to.have.status(404);
             expect(response.body).to.equal(
