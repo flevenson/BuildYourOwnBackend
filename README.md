@@ -4,7 +4,6 @@
 
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/flevenson/BuildYourOwnBackend.svg?columns=all)](https://waffle.io/flevenson/BuildYourOwnBackend)
 
-
 # Cerebral Beers :beers::beers::beers:
 
 **Table of Contents**
@@ -15,7 +14,8 @@
 ---
 
 :beer::beer::beer:
-## Beers 
+
+## Beers
 
 - **GET** - Get All Beers: `/api/v1/cerebral_beers/beer`
 
@@ -51,6 +51,24 @@ This endpoint will return an array of all Cerebral beers, current and passed.
 
 ---
 
+- **GET** - Get All Currently Available Beers: `/api/v1/cerebral_beers/currently_available/:availability`
+
+This endpoint will return all currently available beers.
+
+```
+'/api/v1/cerebral_beers/currently_available/true'
+
+```
+
+All previously available beers may be retieved:
+
+```
+'/api/v1/cerebral_beers/currently_available/false'
+
+```
+
+---
+
 - **POST** - Add a Beer: `/api/v1/cerebral_beers/beer`
 
 This endpoint allows users to add a new beer. A beer may not be added if its style is not already in the database. The request object requires `name`, `description`, `abv`, `is_available` and `style` properties. Valid posts will receive `Beer successfully added!` in response.
@@ -69,23 +87,26 @@ This endpoint allows users to add a new beer. A beer may not be added if its sty
 
 ---
 
-- **PATCH** - Update Availability and ABV of a Beer:
-  `/api/v1/cerebral_beers/beer/:name/:availability/:abv`
+- **PATCH** - Update ABV of a Beer:
+  `/api/v1/cerebral_beers/beer/`
 
-This endpoint allows users to update the availability of a specific beer to true or false, while also updating the ABV. ABV's must be sent as a number. An underscore may be included to indicate a decimal (ex. 5_5 will become "5.5% ABV"). Valid requests will receive `Availability and ABV of [name] sucessfully updated!` in response.
+This endpoint allows users to update the ABV of a specific beer. The request object requires `name` and `abv` properties. ABV's must be sent as a number (numbers including a decimal are accepted). Valid requests will receive `ABV of [name] sucessfully updated!` in response.
 
-#### Example Requests:
+#### Example Request:
 
-`api/v1/cerebral_beers/beer/hollow+fang/true/5_5`
-
-`api/v1/cerebral_beers/beer/Remote+Island/False/10_7`
+```
+{
+	"name": "Thornless",
+	"abv": 5.5,
+}
+```
 
 ---
 
 - **PATCH** - Update Availability of a Beer:
   `/api/v1/cerebral_beers/beer/:name/:availability`
 
-This endpoint allows users to update the availability of a specific beer to true or false. Valid requests will receive `Availability of [name] sucessfully updated!` in response.
+This endpoint allows users to update the availability of a specific beer to true or false directly via URL, without the need for a request object. Valid requests will receive `Availability of [name] sucessfully updated!` in response.
 
 #### Example Requests:
 
@@ -106,7 +127,8 @@ This endpoint allows users to delete a beer. Valid deletions will receive `Beer 
 ---
 
 :beer::beer::beer:
-## Styles 
+
+## Styles
 
 - **GET** - Get All Styles: `/api/v1/cerebral_beers/styles`
 
@@ -132,6 +154,7 @@ This endpoint will return an array of all beer styles.
     }
   ]
 ```
+
 ---
 
 - **GET** - Get All Beers of a Style: `/api/v1/cerebral_beers/find_by_style`
@@ -145,23 +168,6 @@ This endpoint will return all beers of a specified style.
 
 ```
 
----
-
-- **GET** - Get All Currently Available Beers: `/api/v1/cerebral_beers/currently_available/:availability`
-
-This endpoint will return all currently available beers.
-
-```
-'/api/v1/cerebral_beers/currently_available/true'
-
-```
-
-All previously available beers may be retieved:
-
-```
-'/api/v1/cerebral_beers/currently_available/false'
-
-```
 ---
 
 - **POST** - Add a Style: `/api/v1/cerebral_beers/styles`
