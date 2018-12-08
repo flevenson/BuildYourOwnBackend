@@ -108,7 +108,7 @@ This endpoint allows users to update the ABV of a specific beer. The request obj
 
 This endpoint allows users to update the availability of a specific beer to true or false directly via URL, without the need for a request object. Valid requests will receive `Availability of [name] sucessfully updated!` in response.
 
-#### Example Requests:
+#### Example URL's:
 
 `api/v1/cerebral_beers/beer/hollow+fang/true`
 
@@ -120,7 +120,7 @@ This endpoint allows users to update the availability of a specific beer to true
 
 This endpoint allows users to delete a beer. Valid deletions will receive `Beer [name] successfully deleted!` in response.
 
-#### Example Request:
+#### Example URL:
 
 `/api/v1/cerebral_beers/beer/DDH+Strange+Claw`
 
@@ -161,7 +161,7 @@ This endpoint will return an array of all beer styles.
 
 This endpoint will return all beers of a specified style.
 
-#### Example Request:
+#### Example URL:
 
 ```
 '/api/v1/cerebral_beers/find_by_style?style_name=India+Pale+Ale'
@@ -191,6 +191,6 @@ This endpoint allows users to delete a beer style. Valid deletions will receive 
 
 A beer style may not be deleted if there is a beer in the database under that style. These requests will be met with a 405 error and `You're most likely trying to delete a style that has beers attached to it. Please remove those beers first!` in response.
 
-#### Example Request:
+#### Example URL:
 
 `/api/v1/cerebral_beers/styles/India+Pale+Ale`
