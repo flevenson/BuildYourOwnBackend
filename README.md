@@ -106,7 +106,7 @@ This endpoint allows users to update the ABV of a specific beer. The request obj
 - **PATCH** - Update Availability of a Beer:
   `/api/v1/cerebral_beers/beer/:name/:availability`
 
-This endpoint allows users to update the availability of a specific beer to true or false directly via URL, without the need for a request object. Valid requests will receive `Availability of [name] sucessfully updated!` in response.
+This endpoint allows users to update the availability of a specific beer to true or false. Valid requests will receive `Availability of [name] sucessfully updated!` in response.
 
 #### Example URL's:
 
