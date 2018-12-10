@@ -263,3 +263,9 @@ To run the test suite:
 ## How to Contribute:
 
 :beer::beer::beer:
+
+- Please include a detailed summary of your work and which issue it addresses (please include issue #).
+
+- Please make an effort to contribute code written in a similar fashion to the current repo (i.e. people who don't use semi-colons are monsters!)
+
+- Please confirm that you have run and passed the test suite in your pull request.
