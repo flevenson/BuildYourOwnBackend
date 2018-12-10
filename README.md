@@ -4,9 +4,16 @@
 
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/flevenson/BuildYourOwnBackend.svg?columns=all)](https://waffle.io/flevenson/BuildYourOwnBackend)
 
-# Cerebral Beers :beers::beers::beers:
+# Welcome to the Cerebral Beers Open-Source Project! :beers::beers::beers:
 
-**Table of Contents**
+**API Table of Contents**
+
+- [Beers](#beers)
+- [API Documentation](#cerebral-beers-api-documentation)
+
+## Cerebral Beers API Documentation 
+
+**API Table of Contents**
 
 - [Beers](#beers)
 - [Styles](#styles)
