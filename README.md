@@ -4,8 +4,7 @@
 
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/flevenson/BuildYourOwnBackend.svg?columns=all)](https://waffle.io/flevenson/BuildYourOwnBackend)
 
-# Welcome to the Cerebral Beers Open-Source Project! 
-:beers::beers::beers:
+# Welcome to the Cerebral Beers Open-Source Project! :beers::beers::beers:
 
 **API Table of Contents**
 
@@ -13,8 +12,8 @@
 - [Getting Setup](#getting-setup)
 - [How to Contribute](#how-to-contribute)
 
-
 ## Cerebral Beers API Documentation
+
 :beer::beer::beer:
 
 **API Table of Contents**
@@ -135,8 +134,6 @@ This endpoint allows users to delete a beer. Valid deletions will receive `Beer 
 
 ---
 
-:beer::beer::beer:
-
 ## Styles
 
 - **GET** - Get All Styles: `/api/v1/cerebral_beers/styles`
@@ -207,9 +204,62 @@ A beer style may not be deleted if there is a beer in the database under that st
 ---
 
 ## Getting Setup:
+
 :beer::beer::beer:
+
+### Dependencies:
+
+- [Node.js / NPM](https://nodejs.org/)
+- [PostgreSQL](https://www.postgresql.org/download/)
+- [Knex](https://knexjs.org)
+
+From your terminal run:
+
+`$ npm install`
+`$ node server.js`
+
+### Get the Repository:
+
+We'd love for you to contribute code to our project! If so, begin by clicking the `Fork` button on Github. Then use `git clone` to copy your fork onto your local machine.
+
+`$ git clone https://github.com/YOUR_GITHUB_USERNAME_HERE/BuildYourOwnBackend`
+
+Go into the newly created directory:
+
+`$ cd BuildYourOwnBackend`
+
+Add an `upstream` remote that points to the main repo:
+
+`$ git remote add upstream https://github.com/flevenson/BuildYourOwnBackend`
+
+Fetch the latest version of `master` from `upstream`:
+
+`$ git fetch upstream master`
+
+### Getting it Running:
+
+You need to create a database named: `byobe`:
+
+`$ sudo -u postgres psql -c "CREATE DATABASE byobe"`
+
+Once created, run `$ knex seed:run` to populate the database.
+
+### Test:
+
+To run the test suite, start by creating a test database:
+
+`$ sudo -u postgres psql -c "CREATE DATABASE byobe_test"`
+
+To populate the test database:
+
+`$ knex seed:run --env test`
+
+To run the test suite: 
+
+`$ npm test`
 
 ---
 
 ## How to Contribute:
+
 :beer::beer::beer:
