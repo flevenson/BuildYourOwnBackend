@@ -61,6 +61,10 @@ describe("Server file", () => {
         .end((error, response) => {
           expect(response.body).to.be.a("array");
           expect(response.body.length).to.equal(3);
+          let styleNames = response.body.map(obj => obj.style_name)
+          expect(styleNames.includes('Brettanomyces Saison')).to.equal(true)
+          expect(styleNames.includes('Pilsner2')).to.equal(true)
+          expect(styleNames.includes('Barrel Aged Biere de Garde')).to.equal(true)
           done();
         });
     });
@@ -168,6 +172,10 @@ describe("Server file", () => {
         .end((error, response) => {
           expect(response.body).to.be.a("array");
           expect(response.body.length).to.equal(3);
+          let beerNames = response.body.map(beer => beer.name)
+          expect(beerNames.includes('TREMBLING GIANT')).to.equal(true)
+          expect(beerNames.includes('TANGERINE-ING THROUGH DIMENSIONS')).to.equal(true)
+          expect(beerNames.includes('GUAVA-ING THROUGH DIMENSIONS')).to.equal(true)
           done();
         });
     });
@@ -369,6 +377,10 @@ describe("Server file", () => {
         .end((error, response) => {
           expect(response.body).to.be.a("array");
           expect(response.body.length).to.equal(2);
+          let beerNames = response.body.map(beer => beer.name)
+          expect(beerNames.includes('TREMBLING GIANT')).to.equal(false)
+          expect(beerNames.includes('TANGERINE-ING THROUGH DIMENSIONS')).to.equal(true)
+          expect(beerNames.includes('GUAVA-ING THROUGH DIMENSIONS')).to.equal(true)
           done();
         });
     });
@@ -427,6 +439,10 @@ describe("Server file", () => {
           .end((error, response) => {
             expect(response.body).to.be.a("array");
             expect(response.body.length).to.equal(2);
+            let beerNames = response.body.map(beer => beer.name)
+            expect(beerNames.includes('TREMBLING GIANT')).to.equal(true)
+            expect(beerNames.includes('TANGERINE-ING THROUGH DIMENSIONS')).to.equal(false)
+            expect(beerNames.includes('GUAVA-ING THROUGH DIMENSIONS')).to.equal(true)
             done();
           });
       });
@@ -438,6 +454,10 @@ describe("Server file", () => {
           .end((error, response) => {
             expect(response.body).to.be.a("array");
             expect(response.body.length).to.equal(1);
+            let beerNames = response.body.map(beer => beer.name)
+            expect(beerNames.includes('TREMBLING GIANT')).to.equal(false)
+            expect(beerNames.includes('TANGERINE-ING THROUGH DIMENSIONS')).to.equal(true)
+            expect(beerNames.includes('GUAVA-ING THROUGH DIMENSIONS')).to.equal(false)
             done();
           });
       });
