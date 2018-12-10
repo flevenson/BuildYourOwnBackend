@@ -70,7 +70,6 @@ app.get("/api/v1/cerebral_beers/beer", (request, response) => {
 
 app.post("/api/v1/cerebral_beers/beer", (request, response) => {
   const newBeer = request.body;
-
   let missingProperties = [];
   for (let requiredProperty of [
     "name",
@@ -146,39 +145,42 @@ app.patch(
   }
 );
 
-app.patch(
-  "/api/v1/cerebral_beers/beer/:name/:availability/:abv",
-  (request, response) => {
-    let { name, availability, abv } = request.params;
-    name = name.replace("+", " ").toUpperCase();
-    availability = availability.toLowerCase();
-    abv = abv.replace("_", ".") + " % ABV";
-
-    if (availability !== "true" && availability !== "false") {
-      response.status(404).json(`Availability must be 'true' or 'false'`);
-    } else if (isNaN(abv.slice(0, -6))) {
-      response.status(404).json(`Abv must be a number`);
-    } else {
-      database("beers")
-        .where("name", name)
-        .update({ is_available: availability, abv })
-        .then(numEdited => {
-          if (numEdited === 0) {
-            response
-              .status(404)
-              .json(`Beer '${name}' does not exist in database.`);
-          } else {
-            response
-              .status(202)
-              .json(`Availibility and ABV of ${name} sucessfully updated!`);
-          }
-        })
-        .catch(error => {
-          response.status(500).json({ error: error.message });
-        });
+app.patch("/api/v1/cerebral_beers/beer/", (request, response) => {
+  let newAbv = request.body;
+  let missingProperties = [];
+  for (let requiredProperty of ["name", "abv"]) {
+    if (!newAbv[requiredProperty]) {
+      missingProperties = [...missingProperties, requiredProperty];
+      return response
+        .status(422)
+        .send({ error: `Missing Properties ${missingProperties}` });
     }
   }
-);
+  newAbv.name = newAbv.name.toUpperCase();
+  newAbv.abv = newAbv.abv + "% ABV";
+
+  if (isNaN(newAbv.abv.slice(0, -6))) {
+    response.status(404).json(`Abv must be a number`);
+  } else {
+    database("beers")
+      .where("name", newAbv.name)
+      .update({ abv: newAbv.abv })
+      .then(numEdited => {
+        if (numEdited === 0) {
+          response
+            .status(404)
+            .json(`Beer '${newAbv.name}' does not exist in database.`);
+        } else {
+          response
+            .status(202)
+            .json(`ABV of ${newAbv.name} sucessfully updated!`);
+        }
+      })
+      .catch(error => {
+        response.status(500).json({ error: error.message });
+      });
+  }
+});
 
 app.delete("/api/v1/cerebral_beers/beer/:name", (request, response) => {
   let { name } = request.params;

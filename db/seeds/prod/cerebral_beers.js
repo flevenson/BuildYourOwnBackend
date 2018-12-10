@@ -1,12 +1,11 @@
-const beerData = require("../../../public/cleaner.js");
-const beers = beerData[0];
-const styles = beerData[1];
+const beers = require("../../../public/cleaner.js");
+const styles = require('../../scraped-data/style-descriptions.js');
 
 const createStyles = (knex, style) => {
   return knex("beer_styles")
     .insert(
       {
-        style_name: style.beerStyle,
+        style_name: style.style_name,
         description: style.description
       },
       ["style_name", "id"]
