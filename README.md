@@ -4,14 +4,18 @@
 
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/flevenson/BuildYourOwnBackend.svg?columns=all)](https://waffle.io/flevenson/BuildYourOwnBackend)
 
-# Welcome to the Cerebral Beers Open-Source Project! :beers::beers::beers:
+# Welcome to the Cerebral Beers Open-Source Project! 
+:beers::beers::beers:
 
 **API Table of Contents**
 
-- [Beers](#beers)
 - [API Documentation](#cerebral-beers-api-documentation)
+- [Getting Setup](#getting-setup)
+- [How to Contribute](#how-to-contribute)
 
-## Cerebral Beers API Documentation 
+
+## Cerebral Beers API Documentation
+:beer::beer::beer:
 
 **API Table of Contents**
 
@@ -19,8 +23,6 @@
 - [Styles](#styles)
 
 ---
-
-:beer::beer::beer:
 
 ## Beers
 
@@ -201,3 +203,13 @@ A beer style may not be deleted if there is a beer in the database under that st
 #### Example URL:
 
 `/api/v1/cerebral_beers/styles/India+Pale+Ale`
+
+---
+
+## Getting Setup:
+:beer::beer::beer:
+
+---
+
+## How to Contribute:
+:beer::beer::beer:
