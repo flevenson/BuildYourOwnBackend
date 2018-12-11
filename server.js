@@ -17,6 +17,7 @@ app.get("/api/v1/cerebral_beers/styles", (request, response) => {
     });
 });
 
+// Added by Alex & Cole
 app.get("/api/v1/cerebral_beers/styles/:name", (request, response) => {
   let { name } = request.params;
   name = name.replace(/\+/g, " ");
@@ -35,7 +36,7 @@ app.get("/api/v1/cerebral_beers/styles/:name", (request, response) => {
       response.status(500).json({ error: error.message });
     });
 });
-
+//
 
 app.post("/api/v1/cerebral_beers/styles", (request, response) => {
   const newStyle = request.body;
