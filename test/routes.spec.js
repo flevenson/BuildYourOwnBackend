@@ -267,6 +267,51 @@ describe("Server file", () => {
         });
     });
 
+    describe("patch name for /api/v1/cerebral_beers/beer", () => {
+
+      it("patch request should update name of beer", done => {
+        const newName = {name: 'Shaking Elf'}
+
+        chai
+          .request(app)
+          .patch("/api/v1/cerebral_beers/beer/Trembling+Giant")
+          .send(newName)
+          .end((error, response) => {
+            expect(response).to.have.status(202);
+            expect(response.body).to.equal(
+              `Name sucessfully updated from TREMBLING GIANT to SHAKING ELF!`
+            );
+            done();
+          });
+      });
+
+      it("patch request should fail if availibility not boolean", done => {
+        chai
+          .request(app)
+          .patch("/api/v1/cerebral_beers/beer/Trembling+Giant/nottrue")
+          .end((error, response) => {
+            expect(response).to.have.status(404);
+            expect(response.body).to.equal(
+              `Availability must be 'true' or 'false'`
+            );
+            done();
+          });
+      });
+
+      it("patch request should fail if beer not in database", done => {
+        chai
+          .request(app)
+          .patch("/api/v1/cerebral_beers/beer/Deep+Tought/true")
+          .end((error, response) => {
+            expect(response).to.have.status(404);
+            expect(response.body).to.equal(
+              `Beer 'DEEP TOUGHT' does not exist in database.`
+            );
+            done();
+          });
+      });
+    });
+
     describe("patch availibility for /api/v1/cerebral_beers/beer", () => {
       it("patch request should update availability of beer", done => {
         chai
