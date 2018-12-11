@@ -182,6 +182,25 @@ app.patch("/api/v1/cerebral_beers/beer/", (request, response) => {
   }
 });
 
+app.get("/api/v1/cerebral_beers/beer/:name", (request, response) => {
+  let { name } = request.params;
+  name = name.replace(/\+/g, " ").toUpperCase();
+
+  database("beers")
+    .where("name", name)
+    .select()
+    .then(beer => {
+      if (beer === 0) {
+        response.status(404).json(`No beer '${name}' found in database`);
+      } else {
+        response.status(200).json(beer);
+      }
+    })
+    .catch(error => {
+      response.status(500).json({ error: error.message });
+    });
+});
+
 app.delete("/api/v1/cerebral_beers/beer/:name", (request, response) => {
   let { name } = request.params;
   name = name.replace(/\+/g, " ").toUpperCase();
