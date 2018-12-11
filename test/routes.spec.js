@@ -355,6 +355,21 @@ describe("Server file", () => {
         })
     })
 
+    it("get request should fail if beer name not found", done => {
+      const url = "/api/v1/cerebral_beers/beer/Trembling+Gigantalore"
+      const expected = "No beer 'TREMBLING GIGANTALORE' found in database"
+
+     chai
+        .request(app)
+        .get(url)
+        .end((error, response) => {
+          console.log(response.body)
+          expect(response).to.have.status(404);
+          expect(response.body).to.equal(expected);
+          done();
+        })
+    })
+
     it("delete request should correctly delete beer", done => {
       chai
         .request(app)

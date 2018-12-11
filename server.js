@@ -190,7 +190,7 @@ app.get("/api/v1/cerebral_beers/beer/:name", (request, response) => {
     .where("name", name)
     .select()
     .then(beer => {
-      if (beer === 0) {
+      if (beer.length === 0) {
         response.status(404).json(`No beer '${name}' found in database`);
       } else {
         response.status(200).json(beer);
