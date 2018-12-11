@@ -337,8 +337,6 @@ describe("Server file", () => {
 
     it("get request should correctly get individual beer by name", done => {
       const expected = {
-        id: 1,
-        style_id: 1,
         abv: '6.9% ABV',
         description: 'a good beer',
         is_available: true,
