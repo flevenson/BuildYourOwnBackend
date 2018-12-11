@@ -9,13 +9,14 @@ chai.use(chaiHttp);
 
 describe("Server file", () => {
   before(done => {
-    database.migrate.latest()
-    .then(() => done())
-    .catch((error) => {
-      throw error
-    })
-    .done()
-  })
+    database.migrate
+      .latest()
+      .then(() => done())
+      .catch(error => {
+        throw error;
+      })
+      .done();
+  });
 
   beforeEach(done => {
     database.seed.run().then(() => {
@@ -61,10 +62,12 @@ describe("Server file", () => {
         .end((error, response) => {
           expect(response.body).to.be.a("array");
           expect(response.body.length).to.equal(3);
-          let styleNames = response.body.map(obj => obj.style_name)
-          expect(styleNames.includes('Brettanomyces Saison')).to.equal(true)
-          expect(styleNames.includes('Pilsner2')).to.equal(true)
-          expect(styleNames.includes('Barrel Aged Biere de Garde')).to.equal(true)
+          let styleNames = response.body.map(obj => obj.style_name);
+          expect(styleNames.includes("Brettanomyces Saison")).to.equal(true);
+          expect(styleNames.includes("Pilsner2")).to.equal(true);
+          expect(styleNames.includes("Barrel Aged Biere de Garde")).to.equal(
+            true
+          );
           done();
         });
     });
@@ -172,10 +175,14 @@ describe("Server file", () => {
         .end((error, response) => {
           expect(response.body).to.be.a("array");
           expect(response.body.length).to.equal(3);
-          let beerNames = response.body.map(beer => beer.name)
-          expect(beerNames.includes('TREMBLING GIANT')).to.equal(true)
-          expect(beerNames.includes('TANGERINE-ING THROUGH DIMENSIONS')).to.equal(true)
-          expect(beerNames.includes('GUAVA-ING THROUGH DIMENSIONS')).to.equal(true)
+          let beerNames = response.body.map(beer => beer.name);
+          expect(beerNames.includes("TREMBLING GIANT")).to.equal(true);
+          expect(
+            beerNames.includes("TANGERINE-ING THROUGH DIMENSIONS")
+          ).to.equal(true);
+          expect(beerNames.includes("GUAVA-ING THROUGH DIMENSIONS")).to.equal(
+            true
+          );
           done();
         });
     });
@@ -266,7 +273,7 @@ describe("Server file", () => {
       it("patch request should update abv of beer", done => {
         const newAbv = {
           name: "trembling giant",
-          abv: 110,
+          abv: 110
         };
 
         chai
@@ -285,18 +292,16 @@ describe("Server file", () => {
       it("patch request should fail if abv not a number", done => {
         const newAbv = {
           name: "trembling giant",
-          abv: 'asdf',
+          abv: "asdf"
         };
-        
+
         chai
           .request(app)
           .patch("/api/v1/cerebral_beers/beer/")
           .send(newAbv)
           .end((error, response) => {
             expect(response).to.have.status(404);
-            expect(response.body).to.equal(
-              `Abv must be a number`
-            );
+            expect(response.body).to.equal(`Abv must be a number`);
             done();
           });
       });
@@ -304,9 +309,9 @@ describe("Server file", () => {
       it("patch request should fail if beer not in database", done => {
         const newAbv = {
           name: "deep tought",
-          abv: 5.5,
+          abv: 5.5
         };
-        
+
         chai
           .request(app)
           .patch("/api/v1/cerebral_beers/beer/")
@@ -382,10 +387,14 @@ describe("Server file", () => {
         .end((error, response) => {
           expect(response.body).to.be.a("array");
           expect(response.body.length).to.equal(2);
-          let beerNames = response.body.map(beer => beer.name)
-          expect(beerNames.includes('TREMBLING GIANT')).to.equal(false)
-          expect(beerNames.includes('TANGERINE-ING THROUGH DIMENSIONS')).to.equal(true)
-          expect(beerNames.includes('GUAVA-ING THROUGH DIMENSIONS')).to.equal(true)
+          let beerNames = response.body.map(beer => beer.name);
+          expect(beerNames.includes("TREMBLING GIANT")).to.equal(false);
+          expect(
+            beerNames.includes("TANGERINE-ING THROUGH DIMENSIONS")
+          ).to.equal(true);
+          expect(beerNames.includes("GUAVA-ING THROUGH DIMENSIONS")).to.equal(
+            true
+          );
           done();
         });
     });
@@ -444,10 +453,14 @@ describe("Server file", () => {
           .end((error, response) => {
             expect(response.body).to.be.a("array");
             expect(response.body.length).to.equal(2);
-            let beerNames = response.body.map(beer => beer.name)
-            expect(beerNames.includes('TREMBLING GIANT')).to.equal(true)
-            expect(beerNames.includes('TANGERINE-ING THROUGH DIMENSIONS')).to.equal(false)
-            expect(beerNames.includes('GUAVA-ING THROUGH DIMENSIONS')).to.equal(true)
+            let beerNames = response.body.map(beer => beer.name);
+            expect(beerNames.includes("TREMBLING GIANT")).to.equal(true);
+            expect(
+              beerNames.includes("TANGERINE-ING THROUGH DIMENSIONS")
+            ).to.equal(false);
+            expect(beerNames.includes("GUAVA-ING THROUGH DIMENSIONS")).to.equal(
+              true
+            );
             done();
           });
       });
@@ -459,10 +472,14 @@ describe("Server file", () => {
           .end((error, response) => {
             expect(response.body).to.be.a("array");
             expect(response.body.length).to.equal(1);
-            let beerNames = response.body.map(beer => beer.name)
-            expect(beerNames.includes('TREMBLING GIANT')).to.equal(false)
-            expect(beerNames.includes('TANGERINE-ING THROUGH DIMENSIONS')).to.equal(true)
-            expect(beerNames.includes('GUAVA-ING THROUGH DIMENSIONS')).to.equal(false)
+            let beerNames = response.body.map(beer => beer.name);
+            expect(beerNames.includes("TREMBLING GIANT")).to.equal(false);
+            expect(
+              beerNames.includes("TANGERINE-ING THROUGH DIMENSIONS")
+            ).to.equal(true);
+            expect(beerNames.includes("GUAVA-ING THROUGH DIMENSIONS")).to.equal(
+              false
+            );
             done();
           });
       });
