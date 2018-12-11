@@ -17,6 +17,26 @@ app.get("/api/v1/cerebral_beers/styles", (request, response) => {
     });
 });
 
+app.get("/api/v1/cerebral_beers/styles/:name", (request, response) => {
+  let { name } = request.params;
+  name = name.replace(/\+/g, " ");
+
+  database("beer_styles")
+    .where("style_name", name)
+    .select()
+    .then(style => {
+      if (style === 0) {
+        response.status(404).json(`No style '${name}' found in database`);
+      } else {
+        response.status(200).json(style);
+      }
+    })
+    .catch(error => {
+      response.status(500).json({ error: error.message });
+    });
+});
+
+
 app.post("/api/v1/cerebral_beers/styles", (request, response) => {
   const newStyle = request.body;
   let missingProperties = [];
