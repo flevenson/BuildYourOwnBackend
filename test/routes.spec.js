@@ -285,27 +285,46 @@ describe("Server file", () => {
           });
       });
 
-      it("patch request should fail if availibility not boolean", done => {
+      it("patch request should fail if beer not in database", done => {
+        const newName = {name: 'Shaking Elf'}
+
         chai
           .request(app)
-          .patch("/api/v1/cerebral_beers/beer/Trembling+Giant/nottrue")
+          .patch("/api/v1/cerebral_beers/beer/Trembling+G")
+          .send(newName)
           .end((error, response) => {
             expect(response).to.have.status(404);
             expect(response.body).to.equal(
-              `Availability must be 'true' or 'false'`
+              `Beer 'TREMBLING G' does not exist in database.`
             );
             done();
           });
       });
 
-      it("patch request should fail if beer not in database", done => {
+      it("patch request should fail if name property missing from request", done => {
+        const newName = {}
+
         chai
           .request(app)
-          .patch("/api/v1/cerebral_beers/beer/Deep+Tought/true")
+          .patch("/api/v1/cerebral_beers/beer/Trembling+G")
+          .send(newName)
           .end((error, response) => {
-            expect(response).to.have.status(404);
-            expect(response.body).to.equal(
-              `Beer 'DEEP TOUGHT' does not exist in database.`
+            expect(response).to.have.status(422);
+            expect(response.body.error).to.equal(
+              'Missing Properties name'
+            );
+            done();
+          });
+      });
+
+      it("patch request should fail if request missing", done => {
+        chai
+          .request(app)
+          .patch("/api/v1/cerebral_beers/beer/Trembling+G")
+          .end((error, response) => {
+            expect(response).to.have.status(422);
+            expect(response.body.error).to.equal(
+              'Missing Properties name'
             );
             done();
           });

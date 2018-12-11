@@ -178,9 +178,21 @@ app.post("/api/v1/cerebral_beers/beer", (request, response) => {
 app.patch(
   "/api/v1/cerebral_beers/beer/:name",
   (request, response) => {
-    let newName = request.body.name.toUpperCase();
+    let newName;
     let { name } = request.params;
     let oldName = name.replace(/\+/g, " ").toUpperCase();
+    let missingProperties = [];
+
+    for (let requiredProperty of ["name"]) {
+      if (!request.body[requiredProperty]) {
+        missingProperties = [...missingProperties, requiredProperty];
+        return response
+          .status(422)
+          .send({ error: `Missing Properties ${missingProperties}` });
+      }
+    }
+
+    newName = request.body.name.toUpperCase();
 
     database("beers")
       .where("name", oldName)
@@ -189,7 +201,7 @@ app.patch(
         if (numEdited === 0) {
           response
             .status(404)
-            .json(`Beer '${newName}' does not exist in database.`);
+            .json(`Beer '${oldName}' does not exist in database.`);
         } else {
           response
             .status(202)
