@@ -9,20 +9,29 @@ chai.use(chaiHttp);
 
 describe("Server file", () => {
   before(done => {
-    database.migrate
-      .latest()
-      .then(() => done())
-      .catch(error => {
-        throw error;
-      })
-      .done();
-  });
+    database.migrate.rollback()
+    .then(() => database.migrate.latest())
+    .then(() => database.seed.run())
+    .then(() => done())
+    .catch((error) => {
+      throw error
+    })
+    .done()
+  })
 
   beforeEach(done => {
-    database.seed.run().then(() => {
-      done();
+    database.migrate.rollback()
+      .then(() => database.migrate.latest())
+      .then(() => database.seed.run())
+      .then(() => done())
     });
+
+  after(done => {
+    database.migrate.rollback()
+      .then(() => console.log('Testing complete. Db rolled back.'))
+      .then(() => done())
   });
+
 
   it("should return a 404 for a route that does not exist", done => {
     chai
@@ -325,6 +334,39 @@ describe("Server file", () => {
           });
       });
     });
+
+    it("get request should correctly get individual beer by name", done => {
+      const expected = {
+        abv: '6.9% ABV',
+        description: 'a good beer',
+        is_available: true,
+        name: 'TREMBLING GIANT'
+      }
+
+      chai
+        .request(app)
+        .get("/api/v1/cerebral_beers/beer/Trembling+Giant")
+        .end((error, response) => {
+          expect(response).to.have.status(200);
+          expect(response.body[0]).to.include(expected);
+          done();
+        })
+    })
+
+    it("get request should fail if beer name not found", done => {
+      const url = "/api/v1/cerebral_beers/beer/Trembling+Gigantalore"
+      const expected = "No beer 'TREMBLING GIGANTALORE' found in database"
+
+     chai
+        .request(app)
+        .get(url)
+        .end((error, response) => {
+          console.log(response.body)
+          expect(response).to.have.status(404);
+          expect(response.body).to.equal(expected);
+          done();
+        })
+    })
 
     it("delete request should correctly delete beer", done => {
       chai
