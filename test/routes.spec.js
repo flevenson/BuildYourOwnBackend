@@ -156,6 +156,36 @@ describe("Server file", () => {
     });
   });
 
+  describe("/api/v1/cerebral_beers/styles/:name", () => {
+    it("get request should have a 200 status", done => {
+
+      const expected = {
+        description: "Barrel aged Dark style meant for cellaring",
+      }
+
+      chai
+        .request(app)
+        .get("/api/v1/cerebral_beers/styles/Barrel+Aged+Biere+de+Garde")
+        .end((error, response) => {
+          expect(response).to.have.status(200);
+          expect(response.body[0]).to.include(expected)
+          done();
+        });
+    });
+
+    it("sends 404 for bad path and returns custom text", done => {
+      const expected = "No style 'Pilsnizzle' found in database"
+      chai
+        .request(app)
+        .get("/api/v1/cerebral_beers/styles/Pilsnizzle")
+        .end((error, response) => {
+          expect(response).to.have.status(404);
+          expect(response.body).to.equal(expected);
+          done();
+        })
+    });
+  });
+
   describe("/api/v1/cerebral_beers/beer", () => {
     it("get request should have a 200 status", done => {
       chai
@@ -389,6 +419,85 @@ describe("Server file", () => {
           expect(response).to.have.status(404);
           expect(response.body).to.equal(
             `No beer 'GREMBLING TIANT' found in database`
+          );
+          done();
+        });
+    });
+  });
+
+  describe("/api/v1/cerebral_beers/styles/:name", () => {
+    it("patch request should update beer style description", done => {
+      const newDescription = {description: 'a tasty one'}
+
+      chai
+        .request(app)
+        .patch("/api/v1/cerebral_beers/styles/Pilsner2")
+        .send(newDescription)
+        .end((error, response) => {
+          expect(response).to.have.status(202);
+          expect(response.body).to.equal(
+            `Description successfully updated to a tasty one!`
+          );
+          done()
+        })
+    })
+
+    it("character count of description in patch request must be 255 or less", done => {
+      const newDescription = {description: "Godfather ipsum dolor sit amet. I know it was you, Fredo. You broke my heart. You broke my heart! When they come... they come at what you love. My father is no different than any powerful man, any man with power, like a president or senator. Friends and money."}
+      
+      chai
+        .request(app)
+        .patch("/api/v1/cerebral_beers/styles/Pilsner2")
+        .send(newDescription)
+        .end((error, response) => {
+          expect(response).to.have.status(422);
+          expect(response.body).to.equal(
+            'Please enter description with 255 or fewer characters'
+          );
+          done();
+        });
+    });
+
+    it("patch request should fail if beer style is not in database", done => {
+      const newDescription = {description: 'a tasty one'}
+
+      chai
+        .request(app)
+        .patch("/api/v1/cerebral_beers/styles/Pilsnizzle")
+        .send(newDescription)    
+        .end((error, response) => {
+          expect(response).to.have.status(404);
+          expect(response.body).to.equal(
+            `Beer style Pilsnizzle does not exist in database.`
+          );
+          done();
+        })  
+    })
+
+    it("patch request should fail if description property missing from request", done => {
+      const newDescription = {}
+
+      chai
+        .request(app)
+        .patch("/api/v1/cerebral_beers/styles/Pilsner2")
+        .send(newDescription)
+        .end((error, response) => {
+          expect(response).to.have.status(422);
+          expect(response.body.error).to.equal(
+            'Missing Properties description'
+          );
+          done();
+        });
+    });
+
+    it("patch request should fail if request missing", done => {
+      chai
+        .request(app)
+        .patch("/api/v1/cerebral_beers/styles/Pilsner2")
+        .end((error, response) => {
+          expect(response).to.have.status(422);
+          expect(response.body.error).to.equal(
+            'Missing Properties description'
           );
           done();
         });

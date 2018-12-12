@@ -17,6 +17,25 @@ app.get("/api/v1/cerebral_beers/styles", (request, response) => {
     });
 });
 
+app.get("/api/v1/cerebral_beers/styles/:name", (request, response) => {
+  let { name } = request.params;
+  name = name.replace(/\+/g, " ");
+
+  database("beer_styles")
+    .where("style_name", name)
+    .select()
+    .then(style => {
+      if (style.length === 0) {
+        response.status(404).json(`No style '${name}' found in database`);
+      } else {
+        response.status(200).json(style);
+      }
+    })
+    .catch(error => {
+      response.status(500).json({ error: error.message });
+    });
+});
+
 app.post("/api/v1/cerebral_beers/styles", (request, response) => {
   const newStyle = request.body;
   let missingProperties = [];
@@ -36,6 +55,48 @@ app.post("/api/v1/cerebral_beers/styles", (request, response) => {
     .catch(error => {
       response.status(500).json({ error: error.message });
     });
+});
+
+app.patch("/api/v1/cerebral_beers/styles/:style_name", (request, response) => {
+  let newDescription;
+  let { style_name } = request.params;
+  style_name = style_name.replace(/\+/g, " ");
+  let missingProperties = [];
+
+  for (let requiredProperty of ["description"]) {
+    if(!request.body[requiredProperty]) {
+      missingProperties = [...missingProperties, requiredProperty];
+      return response
+        .status(422)
+        .send({ error: `Missing Properties ${missingProperties}` });
+    }
+  }
+    
+  newDescription = request.body.description;
+
+  if (newDescription.length > 255) {
+    response
+      .status(422)
+      .json('Please enter description with 255 or fewer characters')
+  } else {
+    database("beer_styles")
+      .where("style_name", style_name)
+      .update({ description: newDescription })
+      .then(numEdited => {
+        if (numEdited === 0) {
+          response
+            .status(404)
+            .json(`Beer style ${style_name} does not exist in database.`);
+        } else {
+          response
+            .status(202)
+            .json(`Description successfully updated to ${newDescription}!`);
+        }
+      })
+      .catch(error => {
+        response.status(500).json({ error: error.message });
+      })
+  }
 });
 
 app.delete("/api/v1/cerebral_beers/styles/:name", (request, response) => {
