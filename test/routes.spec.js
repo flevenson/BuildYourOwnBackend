@@ -305,7 +305,7 @@ describe("Server file", () => {
 
         chai
           .request(app)
-          .patch("/api/v1/cerebral_beers/beer/Trembling+G")
+          .patch("/api/v1/cerebral_beers/beer/Trembling+Giant")
           .send(newName)
           .end((error, response) => {
             expect(response).to.have.status(422);
@@ -319,7 +319,7 @@ describe("Server file", () => {
       it("patch request should fail if request missing", done => {
         chai
           .request(app)
-          .patch("/api/v1/cerebral_beers/beer/Trembling+G")
+          .patch("/api/v1/cerebral_beers/beer/Trembling+Giant")
           .end((error, response) => {
             expect(response).to.have.status(422);
             expect(response.body.error).to.equal(
