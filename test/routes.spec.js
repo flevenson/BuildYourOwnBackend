@@ -267,6 +267,69 @@ describe("Server file", () => {
         });
     });
 
+    describe("patch name for /api/v1/cerebral_beers/beer", () => {
+      it("patch request should update name of beer", done => {
+        const newName = {name: 'Shaking Elf'}
+
+        chai
+          .request(app)
+          .patch("/api/v1/cerebral_beers/beer/Trembling+Giant")
+          .send(newName)
+          .end((error, response) => {
+            expect(response).to.have.status(202);
+            expect(response.body).to.equal(
+              `Name sucessfully updated from TREMBLING GIANT to SHAKING ELF!`
+            );
+            done();
+          });
+      });
+
+      it("patch request should fail if beer not in database", done => {
+        const newName = {name: 'Shaking Elf'}
+
+        chai
+          .request(app)
+          .patch("/api/v1/cerebral_beers/beer/Trembling+G")
+          .send(newName)
+          .end((error, response) => {
+            expect(response).to.have.status(404);
+            expect(response.body).to.equal(
+              `Beer 'TREMBLING G' does not exist in database.`
+            );
+            done();
+          });
+      });
+
+      it("patch request should fail if name property missing from request", done => {
+        const newName = {}
+
+        chai
+          .request(app)
+          .patch("/api/v1/cerebral_beers/beer/Trembling+Giant")
+          .send(newName)
+          .end((error, response) => {
+            expect(response).to.have.status(422);
+            expect(response.body.error).to.equal(
+              'Missing Properties name'
+            );
+            done();
+          });
+      });
+
+      it("patch request should fail if request missing", done => {
+        chai
+          .request(app)
+          .patch("/api/v1/cerebral_beers/beer/Trembling+Giant")
+          .end((error, response) => {
+            expect(response).to.have.status(422);
+            expect(response.body.error).to.equal(
+              'Missing Properties name'
+            );
+            done();
+          });
+      });
+    });
+
     describe("patch availibility for /api/v1/cerebral_beers/beer", () => {
       it("patch request should update availability of beer", done => {
         chai
@@ -391,7 +454,6 @@ describe("Server file", () => {
         .request(app)
         .get(url)
         .end((error, response) => {
-          console.log(response.body)
           expect(response).to.have.status(404);
           expect(response.body).to.equal(expected);
           done();

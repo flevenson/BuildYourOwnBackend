@@ -176,6 +176,45 @@ app.post("/api/v1/cerebral_beers/beer", (request, response) => {
 });
 
 app.patch(
+  "/api/v1/cerebral_beers/beer/:name",
+  (request, response) => {
+    let newName;
+    let { name } = request.params;
+    let oldName = name.replace(/\+/g, " ").toUpperCase();
+    let missingProperties = [];
+
+    for (let requiredProperty of ["name"]) {
+      if (!request.body[requiredProperty]) {
+        missingProperties = [...missingProperties, requiredProperty];
+        return response
+          .status(422)
+          .send({ error: `Missing Properties ${missingProperties}` });
+      }
+    }
+
+    newName = request.body.name.toUpperCase();
+
+    database("beers")
+      .where("name", oldName)
+      .update({ name: newName })
+      .then(numEdited => {
+        if (numEdited === 0) {
+          response
+            .status(404)
+            .json(`Beer '${oldName}' does not exist in database.`);
+        } else {
+          response
+            .status(202)
+            .json(`Name sucessfully updated from ${oldName} to ${newName}!`);
+        }
+      })
+      .catch(error => {
+        response.status(500).json({ error: error.message });
+      });
+  }
+);
+
+app.patch(
   "/api/v1/cerebral_beers/beer/:name/:availability",
   (request, response) => {
     let { name, availability } = request.params;
