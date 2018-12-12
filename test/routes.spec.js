@@ -378,6 +378,86 @@ describe("Server file", () => {
     });
   });
 
+  describe("/api/v1/cerebral_beers/styles/:name", () => {
+    it("patch request should update beer style description", done => {
+      const newDescription = {description: 'a tasty one'}
+
+      chai
+        .request(app)
+        .patch("/api/v1/cerebral_beers/styles/Pilsner2")
+        .send(newDescription)
+        .end((error, response) => {
+          console.log(response.body)
+          expect(response).to.have.status(202);
+          expect(response.body).to.equal(
+            `Description successfully updated from IT'S NEW to A TASTY ONE!`
+          );
+          done()
+        })
+    })
+
+    it("character count of description in patch request must be 255 or less", done => {
+      const newDescription = "Godfather ipsum dolor sit amet. I know it was you, Fredo. You broke my heart. You broke my heart! When they come... they come at what you love. My father is no different than any powerful man, any man with power, like a president or senator. Friends and money."
+      
+      chai
+        .request(app)
+        .patch("/api/v1/cerebral_beers/styles/Pilsner2")
+        .send(newDescription)
+        .end((error, response) => {
+          expect(response).to.have.status(422);
+          expect(response.body).to.equal(
+            'Please enter description with 255 or fewer characters'
+          );
+          done();
+        });
+    });
+
+    it("patch request should fail if beer style is not in database", done => {
+      const newDescription = {description: 'a tasty one'}
+
+      chai
+        .request(app)
+        .patch("/api/v1/cerebral_beers/styles/Pilsnizzle")
+        .send(newDescription)    
+        .end((error, response) => {
+          expect(response).to.have.status(404);
+          expect(response.body).to.equal(
+            `Beer style PILSNIZZLE does not exist in database.`
+          );
+          done();
+        })  
+    })
+
+    it("patch request should fail if description property missing from request", done => {
+      const newDescription = {}
+
+      chai
+        .request(app)
+        .patch("/api/v1/cerebral_beers/styles/Pilsner2")
+        .send(newDescription)
+        .end((error, response) => {
+          expect(response).to.have.status(422);
+          expect(response.body.error).to.equal(
+            'Missing Properties description'
+          );
+          done();
+        });
+    });
+
+    it("patch request should fail if request missing", done => {
+      chai
+        .request(app)
+        .patch("/api/v1/cerebral_beers/styles/Pilsner2")
+        .end((error, response) => {
+          expect(response).to.have.status(422);
+          expect(response.body.error).to.equal(
+            'Missing Properties description'
+          );
+          done();
+        });
+    });
+  });
+
   describe("/api/v1/cerebral_beers/find_by_style", () => {
     it("should have a 200 status", done => {
       chai
