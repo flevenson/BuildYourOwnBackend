@@ -387,17 +387,16 @@ describe("Server file", () => {
         .patch("/api/v1/cerebral_beers/styles/Pilsner2")
         .send(newDescription)
         .end((error, response) => {
-          console.log(response.body)
           expect(response).to.have.status(202);
           expect(response.body).to.equal(
-            `Description successfully updated from IT'S NEW to A TASTY ONE!`
+            `Description successfully updated to a tasty one!`
           );
           done()
         })
     })
 
     it("character count of description in patch request must be 255 or less", done => {
-      const newDescription = "Godfather ipsum dolor sit amet. I know it was you, Fredo. You broke my heart. You broke my heart! When they come... they come at what you love. My father is no different than any powerful man, any man with power, like a president or senator. Friends and money."
+      const newDescription = {description: "Godfather ipsum dolor sit amet. I know it was you, Fredo. You broke my heart. You broke my heart! When they come... they come at what you love. My father is no different than any powerful man, any man with power, like a president or senator. Friends and money."}
       
       chai
         .request(app)
@@ -422,7 +421,7 @@ describe("Server file", () => {
         .end((error, response) => {
           expect(response).to.have.status(404);
           expect(response.body).to.equal(
-            `Beer style PILSNIZZLE does not exist in database.`
+            `Beer style Pilsnizzle does not exist in database.`
           );
           done();
         })  
