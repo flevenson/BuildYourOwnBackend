@@ -2,7 +2,24 @@ h1,
 h2,
 h3,
 h4 {
-	font-family: "Unlock", cursive;
+	font-family: "Righteous", cursive;
+	font-weight: normal;
+}
+
+body {
+	font-family: "Roboto", sans-serif;
+}
+
+.code {
+	background-color: #F2DEB8;
+}
+
+.inline {
+	padding: 5px;
+}
+
+.block {
+	overflow: scroll;
 }
 
 .main-header {

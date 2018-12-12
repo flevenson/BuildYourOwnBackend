@@ -3,7 +3,7 @@
 	<head>
 		<title>Cerebral Beers API Documentation</title>
 		<link rel="stylesheet" type="text/css" href="./styles.css" />
-		<link href="https://fonts.googleapis.com/css?family=Monoton|Pompiere|Unlock" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Righteous|Roboto" rel="stylesheet">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
@@ -33,7 +33,7 @@
 			<ul class="fetch-method">
 				<li class="method-entry">
 					<strong>GET</strong> - Get All Beers: 
-					<code>/api/v1/cerebral_beers/beer</code>
+					<code class="inline code">/api/v1/cerebral_beers/beer</code>
 				</li>
 			</ul>
 
@@ -41,9 +41,9 @@
 				This endpoint will return an array of all Cerebral beers, current and passed.
 			</p>
 
-			<h4 class="example">Example Response</h4>
-
-			<pre><code>
+			<h3 class="example">Example Response</h3>
+			<section class="block code">
+				<pre><code>
 	[
 	  {
 	      "id": 81,
@@ -66,14 +66,14 @@
 	      "name": "SUPER SECRET CHAT ROOM"
 	  }
 	]
-			</code></pre>
-
+				</code></pre>
+			</section>
 			<hr class="section-break"/>
 
 			<ul class="fetch-method">
 				<li class="method-entry">
 					<strong>GET</strong> - Get All Currently Available Beers: 
-					<code>/api/v1/cerebral_beers/currently_available/:availability</code>
+					<code class="inline code">/api/v1/cerebral_beers/currently_available/:availability</code>
 				</li>
 			</ul>
 
@@ -81,22 +81,26 @@
 				This endpoint will return all currently available beers.
 			</p>
 
-			<pre><code>
+			<section class="block code">
+				<pre><code>
 	/api/v1/cerebral_beers/currently_available/true
-			</code></pre>
+				</code></pre>
+			</section>
 
 			<p class="instructions">All previously available beers may be retrieved:</p>
 
-			<pre><code>
+			<section class="block code">
+				<pre><code>
 	/api/v1/cerebral_beers/currently_available/false
-			</code></pre>
+				</code></pre>
+			</section>
 
 			<hr class="section-break"/>
 
 			<ul class="fetch-method">
 				<li class="method-entry">
 					<strong>POST</strong> - Add a Beer: 
-					<code>/api/v1/cerebral_beers/beer</code>
+					<code class="inline code">/api/v1/cerebral_beers/beer</code>
 				</li>
 			</ul>
 
@@ -104,9 +108,10 @@
 				This endpoint allows users to add a new beer. A beer may not be added if its style is not already in the database. The request object requires <code>name</code>, <code>description</code>, <code>abv</code>, <code>is_available</code> and <code>style</code> properties. Valid posts will receive <code>Beer successfully added!</code> in response.
 			</p>
 
-			<h4 class="example">Example Request:</h4>
+			<h3 class="example">Example Request:</h3>
 
-			<pre><code>
+			<section class="block code">
+				<pre><code>
 	{
 		"name": "Thornless",
 		"description": "Soured with a house culture of Lactobacillus then conditioned on over 330 pounds of blackberry as well as Ceylon cinnamon and Madagascar vanilla beans.",
@@ -114,14 +119,15 @@
 		"is_available": true,
 		"style": "Smoothie-Style Sour"
 	}
-			</code></pre>
+				</code></pre>
+			</section>
 
 			<hr class="section-break"/>
 
 			<ul class="fetch-method">
 				<li class="method-entry">
 					<strong>PATCH</strong> - Update ABV of a Beer: 
-					<code>/api/v1/cerebral_beers/beer/</code>
+					<code class="inline code">/api/v1/cerebral_beers/beer/</code>
 				</li>
 			</ul>
 
@@ -129,21 +135,23 @@
 				This endpoint allows users to update the ABV of a specific beer. The request object requires <code>name</code> and <code>abv</code> properties. ABV's must be sent as a number (numbers including a decimal are accepted). Valid requests will receive <code>ABV of [name] sucessfully updated!</code> in response.
 			</p>
 
-			<h4 class="example">Example Request:</h4>
+			<h3 class="example">Example Request:</h3>
 
-			<pre><code>
+			<section class="block code">
+				<pre><code>
 	{
 		"name": "Thornless",
 		"abv": 5.5,
 	}
-			</code></pre>
+				</code></pre>
+			</section>
 
 			<hr class="section-break"/>
 
 			<ul class="fetch-method">
 				<li class="method-entry">
 					<strong>PATCH</strong> - Update Availability of a Beer: 
-					<code>/api/v1/cerebral_beers/beer/:name/:availability</code>
+					<code class="inline code">/api/v1/cerebral_beers/beer/:name/:availability</code>
 				</li>
 			</ul>
 
@@ -151,19 +159,21 @@
 				This endpoint allows users to update the availability of a specific beer to true or false. Valid requests will receive <code>Availability of [name] sucessfully updated!</code> in response.
 			</p>
 
-			<h4 class="example">Example URL's:</h4>
+			<h3 class="example">Example URL's:</h3>
 
-			<pre><code>
+			<section class="block code">
+				<pre><code>
 	api/v1/cerebral_beers/beer/hollow+fang/true
 	api/v1/cerebral_beers/beer/Remote+Island/False
-			</code></pre>
+				</code></pre>
+			</section>
 
 			<hr class="section-break"/>
 
 			<ul class="fetch-method">
 				<li class="method-entry">
 					<strong>DELETE</strong> - Delete a Beer: 
-					<code>/api/v1/cerebral_beers/beer/:name</code>
+					<code class="inline code">/api/v1/cerebral_beers/beer/:name</code>
 				</li>
 			</ul>
 
@@ -171,11 +181,13 @@
 				This endpoint allows users to delete a beer. Valid deletions will receive <code>Beer [name] successfully deleted!</code> in response.
 			</p>
 
-			<h4 class="example">Example URL:</h4>
+			<h3 class="example">Example URL:</h3>
 
-			<pre><code>
+			<section class="block code">
+				<pre><code>
 	/api/v1/cerebral_beers/beer/DDH+Strange+Claw
-			</code></pre>
+				</code></pre>
+			</section>
 		</article>
 
 		<hr class="section-break"/>
@@ -186,7 +198,7 @@
 			<ul class="fetch-method">
 				<li class="method-entry">
 					<strong>GET</strong> - Get All Styles: 
-					<code>/api/v1/cerebral_beers/styles</code>
+					<code class="inline code">/api/v1/cerebral_beers/styles</code>
 				</li>
 			</ul>
 
@@ -194,9 +206,10 @@
 				This endpoint will return an array of all beer styles.
 			</p>
 
-			<h4 class="example">Example Response:</h4>
+			<h3 class="example">Example Response:</h3>
 
-			<pre><code>
+			<section class="block code">
+				<pre><code>
   [
     {
         "id": 55,
@@ -213,14 +226,15 @@
         "updated_at": "2018-12-05T04:37:02.708Z"
     }
   ]
-			</code></pre>
+				</code></pre>
+			</section>
 
 			<hr class="section-break"/>
 
 			<ul class="fetch-method">
 				<li class="method-entry">
 					<strong>GET</strong> - Get All Beers of a Style: 
-					<code>/api/v1/cerebral_beers/find_by_style</code>
+					<code class="inline code">/api/v1/cerebral_beers/find_by_style</code>
 				</li>
 			</ul>
 
@@ -228,18 +242,20 @@
 				This endpoint will return all beers of a specified style.
 			</p>
 
-			<h4 class="example">Example URL:</h4>
+			<h3 class="example">Example URL:</h3>
 
-			<pre><code>
+			<section class="block code">
+				<pre><code>
 	/api/v1/cerebral_beers/find_by_style?style_name=India+Pale+Ale
-			</code></pre>
+				</code></pre>
+			</section>
 
 			<hr class="section-break"/>
 
 			<ul class="fetch-method">
 				<li class="method-entry">
 					<strong>POST</strong> - Add a Style: 
-					<code>/api/v1/cerebral_beers/styles</code>
+					<code class="inline code">/api/v1/cerebral_beers/styles</code>
 				</li>
 			</ul>
 
@@ -247,21 +263,23 @@
 				This endpoint allows users to create a new beer style. The request object requires <code>description</code> and <code>style_name</code> properties. Valid posts will receive <code>Beer Style successfully added!</code> in response.
 			</p>
 
-			<h4 class="example">Example Request:</h4>
+			<h3 class="example">Example Request:</h3>
 
-			<pre><code>
+			<section class="block code">
+				<pre><code>
   {
     "description": "Pilsner is a pale lager which takes its name from the Bohemian city of Pilsen."
     "style_name": "Pilsner"
   }
-			</code></pre>
+				</code></pre>
+			</section>
 
 			<hr class="section-break"/>
 
 			<ul class="fetch-method">
 				<li class="method-entry">
 					<strong>DELETE</strong> - Delete a Style: 
-					<code>/api/v1/cerebral_beers/styles/:name</code>
+					<code class="inline code">/api/v1/cerebral_beers/styles/:name</code>
 				</li>
 			</ul>
 
@@ -273,11 +291,13 @@
 				A beer style may not be deleted if there is a beer in the database under that style. These requests will be met with a 405 error and <code>You're most likely trying to delete a style that has beers attached to it. Please remove those beers first!</code> in response.
 			</p>
 
-			<h4 class="example">Example URL:</h4>
+			<h3 class="example">Example URL:</h3>
 
-			<pre><code>
+			<section class="block code">
+				<pre><code>
 	/api/v1/cerebral_beers/styles/India+Pale+Ale
-			</code></pre>
+				</code></pre>
+			</section>
 		</article>
 	</body>
 </html>
