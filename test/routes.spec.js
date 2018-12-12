@@ -268,7 +268,6 @@ describe("Server file", () => {
     });
 
     describe("patch name for /api/v1/cerebral_beers/beer", () => {
-
       it("patch request should update name of beer", done => {
         const newName = {name: 'Shaking Elf'}
 
@@ -455,7 +454,6 @@ describe("Server file", () => {
         .request(app)
         .get(url)
         .end((error, response) => {
-          console.log(response.body)
           expect(response).to.have.status(404);
           expect(response.body).to.equal(expected);
           done();
