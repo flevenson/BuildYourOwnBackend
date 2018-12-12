@@ -144,17 +144,16 @@ describe("Server file", () => {
     });
   });
 
-// Added by Alex & Cole
   describe("/api/v1/cerebral_beers/styles/:name", () => {
     it("get request should have a 200 status", done => {
 
       const expected = {
-        description: "German Pilsner, aka Pilsener, aka “Pils,” is the style that became popular after Bohemian Pilsner (made with German lager yeasts) took off. Made with Pilsner malt, the German style could be made with Saaz or any combination of German Hops.",
+        description: "Barrel aged Dark style meant for cellaring",
       }
 
       chai
         .request(app)
-        .get("/api/v1/cerebral_beers/styles/Pilsner")
+        .get("/api/v1/cerebral_beers/styles/Barrel+Aged+Biere+de+Garde")
         .end((error, response) => {
           expect(response).to.have.status(200);
           expect(response.body[0]).to.include(expected)
@@ -163,7 +162,7 @@ describe("Server file", () => {
     });
 
     it("sends 404 for bad path and returns custom text", done => {
-      const expected = "No beer 'Pilsnizzle' found in database"
+      const expected = "No style 'Pilsnizzle' found in database"
       chai
         .request(app)
         .get("/api/v1/cerebral_beers/styles/Pilsnizzle")
@@ -173,9 +172,7 @@ describe("Server file", () => {
           done();
         })
     });
-
   });
-//
 
   describe("/api/v1/cerebral_beers/beer", () => {
     it("get request should have a 200 status", done => {
