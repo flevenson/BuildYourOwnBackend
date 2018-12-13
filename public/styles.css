@@ -1,17 +1,62 @@
-h1, 
+:root {
+  --ivy: #181F1C;
+  --hunter: #274029;
+  --moss: #315C2B;
+  --leaf: #60712F;
+  --hops: #BBAC57;
+  --light-hops: #D6CB8D;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: var(--moss);
+}
+
+a:hover {
+  color: var(--leaf);
+}
+
+h1,
 h2,
 h3,
-h4 {
+strong {
 	font-family: "Righteous", cursive;
 	font-weight: normal;
+  color: var(--hunter);
+}
+
+strong {
+  font-size: 1.25rem;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: var(--ivy);
+  background-image: linear-gradient(to right, #BABCBA, #181F1C, #BABCBA);
+  margin: 30px 0;
+}
+
+body,
+li {
+  color: var(--ivy);
 }
 
 body {
+  margin: 0 auto;
+  padding: 0 50px 50px;
 	font-family: "Roboto", sans-serif;
 }
 
+code {
+  padding: 1px 5px;
+}
+
 .code {
-	background-color: #F2DEB8;
+	background-color: var(--light-hops);
 }
 
 .inline {
@@ -19,53 +64,6 @@ body {
 }
 
 .block {
+  padding: 0;
 	overflow: scroll;
-}
-
-.main-header {
-
-}
-
-.table-of-contents {
-
-}
-
-.contents {
-
-}
-
-.contents-entry {
-
-}
-
-.category-header {
-
-}
-
-.example {
-
-}
-
-.section-break {
-
-}
-
-.beers {
-
-}
-
-.instructions {
-
-}
-
-.fetch-method {
-
-}
-
-.method-entry {
-
-}
-
-.styles {
-
 }
