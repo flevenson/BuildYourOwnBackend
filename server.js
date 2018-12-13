@@ -64,20 +64,20 @@ app.patch("/api/v1/cerebral_beers/styles/:style_name", (request, response) => {
   let missingProperties = [];
 
   for (let requiredProperty of ["description"]) {
-    if(!request.body[requiredProperty]) {
+    if (!request.body[requiredProperty]) {
       missingProperties = [...missingProperties, requiredProperty];
       return response
         .status(422)
         .send({ error: `Missing Properties ${missingProperties}` });
     }
   }
-    
+
   newDescription = request.body.description;
 
   if (newDescription.length > 255) {
     response
       .status(422)
-      .json('Please enter description with 255 or fewer characters')
+      .json("Please enter description with 255 or fewer characters");
   } else {
     database("beer_styles")
       .where("style_name", style_name)
@@ -95,7 +95,7 @@ app.patch("/api/v1/cerebral_beers/styles/:style_name", (request, response) => {
       })
       .catch(error => {
         response.status(500).json({ error: error.message });
-      })
+      });
   }
 });
 
@@ -175,44 +175,41 @@ app.post("/api/v1/cerebral_beers/beer", (request, response) => {
     });
 });
 
-app.patch(
-  "/api/v1/cerebral_beers/beer/:name",
-  (request, response) => {
-    let newName;
-    let { name } = request.params;
-    let oldName = name.replace(/\+/g, " ").toUpperCase();
-    let missingProperties = [];
+app.patch("/api/v1/cerebral_beers/beer/:name", (request, response) => {
+  let newName;
+  let { name } = request.params;
+  let oldName = name.replace(/\+/g, " ").toUpperCase();
+  let missingProperties = [];
 
-    for (let requiredProperty of ["name"]) {
-      if (!request.body[requiredProperty]) {
-        missingProperties = [...missingProperties, requiredProperty];
-        return response
-          .status(422)
-          .send({ error: `Missing Properties ${missingProperties}` });
-      }
+  for (let requiredProperty of ["name"]) {
+    if (!request.body[requiredProperty]) {
+      missingProperties = [...missingProperties, requiredProperty];
+      return response
+        .status(422)
+        .send({ error: `Missing Properties ${missingProperties}` });
     }
-
-    newName = request.body.name.toUpperCase();
-
-    database("beers")
-      .where("name", oldName)
-      .update({ name: newName })
-      .then(numEdited => {
-        if (numEdited === 0) {
-          response
-            .status(404)
-            .json(`Beer '${oldName}' does not exist in database.`);
-        } else {
-          response
-            .status(202)
-            .json(`Name sucessfully updated from ${oldName} to ${newName}!`);
-        }
-      })
-      .catch(error => {
-        response.status(500).json({ error: error.message });
-      });
   }
-);
+
+  newName = request.body.name.toUpperCase();
+
+  database("beers")
+    .where("name", oldName)
+    .update({ name: newName })
+    .then(numEdited => {
+      if (numEdited === 0) {
+        response
+          .status(404)
+          .json(`Beer '${oldName}' does not exist in database.`);
+      } else {
+        response
+          .status(202)
+          .json(`Name sucessfully updated from ${oldName} to ${newName}!`);
+      }
+    })
+    .catch(error => {
+      response.status(500).json({ error: error.message });
+    });
+});
 
 app.patch(
   "/api/v1/cerebral_beers/beer/:name/:availability",

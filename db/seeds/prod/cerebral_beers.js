@@ -1,5 +1,5 @@
 const beers = require("../../../public/cleaner.js");
-const styles = require('../../scraped-data/style-descriptions.js');
+const styles = require("../../scraped-data/style-descriptions.js");
 
 const createStyles = (knex, style) => {
   return knex("beer_styles")
