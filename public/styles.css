@@ -11,11 +11,23 @@
   box-sizing: border-box;
 }
 
+header,
+nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 a {
   color: var(--moss);
 }
 
 a:hover {
+  color: var(--hops);
+}
+
+a:active {
   color: var(--leaf);
 }
 
@@ -40,8 +52,7 @@ hr {
   margin: 30px 0;
 }
 
-body,
-li {
+body {
   color: var(--ivy);
 }
 
@@ -55,15 +66,19 @@ code {
   padding: 1px 5px;
 }
 
+.block {
+  padding: 0;
+  overflow: scroll;
+}
+
 .code {
-	background-color: var(--light-hops);
+  background-color: var(--light-hops);
+}
+
+.first {
+  margin-bottom: 10px;
 }
 
 .inline {
 	padding: 5px;
-}
-
-.block {
-  padding: 0;
-	overflow: scroll;
 }
