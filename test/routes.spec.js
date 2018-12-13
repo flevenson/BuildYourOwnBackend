@@ -9,29 +9,31 @@ chai.use(chaiHttp);
 
 describe("Server file", () => {
   before(done => {
-    database.migrate.rollback()
-    .then(() => database.migrate.latest())
-    .then(() => database.seed.run())
-    .then(() => done())
-    .catch((error) => {
-      throw error
-    })
-    .done()
-  })
-
-  beforeEach(done => {
-    database.migrate.rollback()
+    database.migrate
+      .rollback()
       .then(() => database.migrate.latest())
       .then(() => database.seed.run())
       .then(() => done())
-    });
-
-  after(done => {
-    database.migrate.rollback()
-      .then(() => console.log('Testing complete. Db rolled back.'))
-      .then(() => done())
+      .catch(error => {
+        throw error;
+      })
+      .done();
   });
 
+  beforeEach(done => {
+    database.migrate
+      .rollback()
+      .then(() => database.migrate.latest())
+      .then(() => database.seed.run())
+      .then(() => done());
+  });
+
+  after(done => {
+    database.migrate
+      .rollback()
+      .then(() => console.log("Testing complete. Db rolled back."))
+      .then(() => done());
+  });
 
   it("should return a 404 for a route that does not exist", done => {
     chai
@@ -158,23 +160,22 @@ describe("Server file", () => {
 
   describe("/api/v1/cerebral_beers/styles/:name", () => {
     it("get request should have a 200 status", done => {
-
       const expected = {
-        description: "Barrel aged Dark style meant for cellaring",
-      }
+        description: "Barrel aged Dark style meant for cellaring"
+      };
 
       chai
         .request(app)
         .get("/api/v1/cerebral_beers/styles/Barrel+Aged+Biere+de+Garde")
         .end((error, response) => {
           expect(response).to.have.status(200);
-          expect(response.body[0]).to.include(expected)
+          expect(response.body[0]).to.include(expected);
           done();
         });
     });
 
     it("sends 404 for bad path and returns custom text", done => {
-      const expected = "No style 'Pilsnizzle' found in database"
+      const expected = "No style 'Pilsnizzle' found in database";
       chai
         .request(app)
         .get("/api/v1/cerebral_beers/styles/Pilsnizzle")
@@ -182,7 +183,7 @@ describe("Server file", () => {
           expect(response).to.have.status(404);
           expect(response.body).to.equal(expected);
           done();
-        })
+        });
     });
   });
 
@@ -269,7 +270,7 @@ describe("Server file", () => {
 
     describe("patch name for /api/v1/cerebral_beers/beer", () => {
       it("patch request should update name of beer", done => {
-        const newName = {name: 'Shaking Elf'}
+        const newName = { name: "Shaking Elf" };
 
         chai
           .request(app)
@@ -285,7 +286,7 @@ describe("Server file", () => {
       });
 
       it("patch request should fail if beer not in database", done => {
-        const newName = {name: 'Shaking Elf'}
+        const newName = { name: "Shaking Elf" };
 
         chai
           .request(app)
@@ -301,7 +302,7 @@ describe("Server file", () => {
       });
 
       it("patch request should fail if name property missing from request", done => {
-        const newName = {}
+        const newName = {};
 
         chai
           .request(app)
@@ -309,9 +310,7 @@ describe("Server file", () => {
           .send(newName)
           .end((error, response) => {
             expect(response).to.have.status(422);
-            expect(response.body.error).to.equal(
-              'Missing Properties name'
-            );
+            expect(response.body.error).to.equal("Missing Properties name");
             done();
           });
       });
@@ -322,9 +321,7 @@ describe("Server file", () => {
           .patch("/api/v1/cerebral_beers/beer/Trembling+Giant")
           .end((error, response) => {
             expect(response).to.have.status(422);
-            expect(response.body.error).to.equal(
-              'Missing Properties name'
-            );
+            expect(response.body.error).to.equal("Missing Properties name");
             done();
           });
       });
@@ -430,11 +427,11 @@ describe("Server file", () => {
 
     it("get request should correctly get individual beer by name", done => {
       const expected = {
-        abv: '6.9% ABV',
-        description: 'a good beer',
+        abv: "6.9% ABV",
+        description: "a good beer",
         is_available: true,
-        name: 'TREMBLING GIANT'
-      }
+        name: "TREMBLING GIANT"
+      };
 
       chai
         .request(app)
@@ -443,22 +440,22 @@ describe("Server file", () => {
           expect(response).to.have.status(200);
           expect(response.body[0]).to.include(expected);
           done();
-        })
-    })
+        });
+    });
 
     it("get request should fail if beer name not found", done => {
-      const url = "/api/v1/cerebral_beers/beer/Trembling+Gigantalore"
-      const expected = "No beer 'TREMBLING GIGANTALORE' found in database"
+      const url = "/api/v1/cerebral_beers/beer/Trembling+Gigantalore";
+      const expected = "No beer 'TREMBLING GIGANTALORE' found in database";
 
-     chai
+      chai
         .request(app)
         .get(url)
         .end((error, response) => {
           expect(response).to.have.status(404);
           expect(response.body).to.equal(expected);
           done();
-        })
-    })
+        });
+    });
 
     it("delete request should correctly delete beer", done => {
       chai
@@ -489,7 +486,7 @@ describe("Server file", () => {
 
   describe("/api/v1/cerebral_beers/styles/:name", () => {
     it("patch request should update beer style description", done => {
-      const newDescription = {description: 'a tasty one'}
+      const newDescription = { description: "a tasty one" };
 
       chai
         .request(app)
@@ -500,13 +497,16 @@ describe("Server file", () => {
           expect(response.body).to.equal(
             `Description successfully updated to a tasty one!`
           );
-          done()
-        })
-    })
+          done();
+        });
+    });
 
     it("character count of description in patch request must be 255 or less", done => {
-      const newDescription = {description: "Godfather ipsum dolor sit amet. I know it was you, Fredo. You broke my heart. You broke my heart! When they come... they come at what you love. My father is no different than any powerful man, any man with power, like a president or senator. Friends and money."}
-      
+      const newDescription = {
+        description:
+          "Godfather ipsum dolor sit amet. I know it was you, Fredo. You broke my heart. You broke my heart! When they come... they come at what you love. My father is no different than any powerful man, any man with power, like a president or senator. Friends and money."
+      };
+
       chai
         .request(app)
         .patch("/api/v1/cerebral_beers/styles/Pilsner2")
@@ -514,30 +514,30 @@ describe("Server file", () => {
         .end((error, response) => {
           expect(response).to.have.status(422);
           expect(response.body).to.equal(
-            'Please enter description with 255 or fewer characters'
+            "Please enter description with 255 or fewer characters"
           );
           done();
         });
     });
 
     it("patch request should fail if beer style is not in database", done => {
-      const newDescription = {description: 'a tasty one'}
+      const newDescription = { description: "a tasty one" };
 
       chai
         .request(app)
         .patch("/api/v1/cerebral_beers/styles/Pilsnizzle")
-        .send(newDescription)    
+        .send(newDescription)
         .end((error, response) => {
           expect(response).to.have.status(404);
           expect(response.body).to.equal(
             `Beer style Pilsnizzle does not exist in database.`
           );
           done();
-        })  
-    })
+        });
+    });
 
     it("patch request should fail if description property missing from request", done => {
-      const newDescription = {}
+      const newDescription = {};
 
       chai
         .request(app)
@@ -546,7 +546,7 @@ describe("Server file", () => {
         .end((error, response) => {
           expect(response).to.have.status(422);
           expect(response.body.error).to.equal(
-            'Missing Properties description'
+            "Missing Properties description"
           );
           done();
         });
@@ -559,7 +559,7 @@ describe("Server file", () => {
         .end((error, response) => {
           expect(response).to.have.status(422);
           expect(response.body.error).to.equal(
-            'Missing Properties description'
+            "Missing Properties description"
           );
           done();
         });
